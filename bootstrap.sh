@@ -21,19 +21,41 @@ for x in $FILES; do
     fi
 done
 
-if [ -e $BACKUP_FILE ]; then
-    echo "Warning: backup file $BACKUP_FILE exists. Overwrite (y/n)?"
+MAKE_BACKUP=0
+# look if there are files to be saved
+if [[ $BACKUP_THESE == "" ]]
+then
+    MAKE_BACKUP=1
+    echo "Omitting backup (Nothing to store)."
+fi
+# in case the backup file already exists, can it be overwritten?
+if [[ -e $BACKUP_FILE && $MAKE_BACKUP == 0 ]]
+then
+    echo "Warning: backup file $BACKUP_FILE exists. Overwrite? y/n/A(bort):"
     read ANSWER
-    if [[ $ANSWER != "y" && $ANSWER != "Y" ]]; then
-        echo "Aborting."
+    if [[ $ANSWER == "y" || $ANSWER == "Y" ]]
+    then
+        MAKE_BACKUP=0
+    elif [[ $ANSWER == "n" || $ANSWER == "N" ]]
+    then
+        MAKE_BACKUP=1
+        echo Omitting backup.
+    else
+        echo Aborting.
         exit 1
     fi
 fi
 
-echo Creating backup of dotfiles in $HOME as $BACKUP_FILE
-cd $HOME && echo $BACKUP_THESE | xargs tar czf $BACKUP_FILE
-echo Copying dotfiles in $THISDIR to $HOME
-cd $THISDIR
-#echo "$FILES" | xargs -I{} cp -f "$THISDIR/{}" "$HOME/{}"
-echo $FILES | xargs tar cf $TEMP_TAR && tar xf $TEMP_TAR -C $HOME
-rm $TEMP_TAR
+if [[ $MAKE_BACKUP == 0 ]]
+then
+    echo Creating backup of dotfiles in $HOME as $BACKUP_FILE
+    cd $HOME && echo $BACKUP_THESE | xargs tar czf $BACKUP_FILE
+fi
+
+#echo Copying dotfiles in $THISDIR to $HOME
+#cd $THISDIR && echo $FILES | xargs tar cf $TEMP_TAR && tar xf $TEMP_TAR -C $HOME && rm $TEMP_TAR
+echo Symlinking dotfiles
+for x in $FILES;
+do
+    ln -sf "$THISDIR/$x" "$HOME/$x"
+done
