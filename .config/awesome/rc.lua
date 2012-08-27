@@ -44,15 +44,18 @@ env_session = os.getenv("DESKTOP_SESSION")
 confdir = env_home .. "/.config/awesome/"
 icondir = confdir .. "icons/"
 
--- beautiful_theme="/usr/share/awesome/themes/default/theme.lua"
 beautiful_theme= confdir .. "themes/default/theme.lua"
+--beautiful_theme="/usr/share/awesome/themes/default/theme.lua"
 
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
-cmd_vol_toggle = "amixer -D pulse -q sset Master toggle"
-cmd_vol_down   = "amixer -D pulse -q sset Master 2%-"
-cmd_vol_up     = "amixer -D pulse -q sset Master 2%+"
+-- pulse_audio = "-D pulse"
+pulse_audio = "-c 0"
+cmd_vol_toggle = "amixer " .. pulse_audio .. " -q sset Master toggle"
+cmd_vol_down   = "amixer " .. pulse_audio .. " -q sset Master 2%-"
+cmd_vol_up     = "amixer " .. pulse_audio .. " -q sset Master 2%+"
+cmd_vol_get    = "amixer " .. pulse_audio .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
 
 -- commands for restart, logout, shutdown
 cmd_ask_shutdown = "gnome-session-quit --power-off"
@@ -64,7 +67,8 @@ beautiful.init(beautiful_theme)
 
 -- This is used later as the default terminal and editor to run.
 -- terminal = "gnome-terminal --hide-menubar"
-terminal = "urxvt"
+-- terminal = "urxvt"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -97,20 +101,25 @@ for s = 1, screen.count() do
     tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
 end
 -- }}}
+-- local conffile = awesome.conffile or aweful.util.getdir("config") .. "/rc.lua"
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "logout", cmd_ask_logout },
-   { "quit", cmd_ask_shutdown },
---   { "restart", awesome.restart },
---   { "quit", awesome.quit }
+   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+   { "restart", awesome.restart },
 }
 
+if string.find(env_session, "gnome") then
+    table.insert(myawesomemenu, { "shutdown", cmd_ask_shutdown})
+    table.insert(myawesomemenu, { "logout", cmd_ask_logout })
+else
+    table.insert(myawesomemenu, { "logout", awesome.quit})
+end
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "debian", debian.menu.Debian_menu.Debian },
+                                    { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -120,28 +129,24 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- {{{ Wibox
-
 -- Spacers
 rbracket = widget({type = "textbox" })
 rbracket.text = "]"
 lbracket = widget({type = "textbox" })
 lbracket.text = "["
-
--- Space
 space = widget({ type = "textbox" })
 space.text = " "
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
--- volume ♫ 
 diskwidget = widget({ type = 'textbox' })
 diskwidget.text = "du"
 disk = require("diskusage")
+disk.addToWidget(diskwidget, 75, 90, true)
 -- the first argument is the widget to trigger the diskusage
 -- the second/third is the percentage at which a line gets orange/red
 -- true = show only local filesystems
-disk.addToWidget(diskwidget, 75, 90, true)
 
 -- Battery ⚡
 baticon = widget({ type = "imagebox"})
@@ -174,9 +179,9 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 end, 1800, "EDDP")
                 --'1800': check every 30 minutes.
                 --'EDDP': airport Halle-Leipzig
-
-
-require("speaker")
+ 
+-- volume ♫ 
+s = require("speaker")
 spr, sic = speaker.widgets()
 
 -- Create a systray
@@ -184,7 +189,6 @@ mysystray = widget({ type = "systray" })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
-mybottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -264,15 +268,6 @@ for s = 1, screen.count() do
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
-
-    -- Create the wibox down below
---    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
-    -- Add widgets to the wibox - order matters
---    mybottomwibox[s].widgets = {
---        baticon, lbracket, batwidget.widget, rbracket,
---        space,weatherwidget,space,
---        layout = awful.widget.layout.horizontal.leftright
---    }
 end
 -- }}}
 
@@ -286,18 +281,18 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({"Mod1", "Control"}, "l",
-        function () awful.util.spawn("gnome-screensaver-command --lock") end),
-    awful.key({}, "#123", 
-        function () speaker.up() end),
-    awful.key({}, "#122", 
-        function () speaker.down() end),
-    awful.key({}, "#121", 
-        function () speaker.toggle() end),
-    awful.key({ modkey,           }, "F1",
-        function () awful.util.spawn("firefox", false) end),
-    awful.key({ modkey, }, "F10", 
-        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
+--    awful.key({"Mod1", "Control"}, "l",
+--       function () awful.util.spawn("gnome-screensaver-command --lock") end),
+--    awful.key({}, "#123", 
+--        function () speaker.up() end),
+--    awful.key({}, "#122", 
+--        function () speaker.down() end),
+--    awful.key({}, "#121", 
+--        function () speaker.toggle() end),
+--    awful.key({ modkey,           }, "F1",
+--        function () awful.util.spawn("firefox", false) end),
+--    awful.key({ modkey, }, "F10", 
+--        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -433,35 +428,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "Skype" },
-      properties = { floating = true }},
-    { rule = { class = "Opera" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true }},
-    { rule = { class = "Firefox" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true }},
-    { rule = { class = "Vimperator" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true }},
-    { rule = { class = "Scribus" },
-      properties = {
-          floating = true}}
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -498,7 +464,6 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
 --require("lfs")
 ---- sudo apt-get install liblua5.1-filesystem0
 ---- {{{ Run programm once
@@ -535,22 +500,21 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 --   return awful.util.spawn(cmd or process)
 --end
 ---- }}}
-local r = require("runonce")
--- make session-dependant decisions
-if string.find(env_session, "gnome") then
--- env_session contains gnome somewhere --> assuming that awesome was started via gnome-session
-    r.run("firefox")
-else
--- assuming that awesome was started outside a gnome-session
-    -- r.run("ibamtray",nil,"/usr/bin/ibamtray")
-    -- r.run("wicd-client","--tray","/usr/bin/wicd-client")
-    r.run("gnome-settings-daemon")
-    r.run("nm-applet")
---    r.run("gnome-power-manager", nil, "/usr/bin/gnome-power-manager")
---    r.run("gnome-volume-manager", nil, "/usr/bin/gnome-volume-manager")
-    r.run("eval `gnome-keyring-daemon`")
-end
-
-
+--local r = require("runonce")
+---- make session-dependant decisions
+--if string.find(env_session, "gnome") then
+---- env_session contains gnome somewhere --> assuming that awesome was started via gnome-session
+--    r.run("firefox")
+--else
+---- assuming that awesome was started outside a gnome-session
+--    -- r.run("ibamtray",nil,"/usr/bin/ibamtray")
+--    -- r.run("wicd-client","--tray","/usr/bin/wicd-client")
+--    r.run("gnome-settings-daemon")
+--    r.run("nm-applet")
+----    r.run("gnome-power-manager", nil, "/usr/bin/gnome-power-manager")
+----    r.run("gnome-volume-manager", nil, "/usr/bin/gnome-volume-manager")
+--    r.run("eval `gnome-keyring-daemon`")
+--end
 --naughty.notify({ text=cmd_vol_toggle })
 --naughty.notify({ text=cmd_vol_up })
+
