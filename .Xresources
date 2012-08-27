@@ -7,6 +7,7 @@
 ! From:         http://dotshare.it/dots/232/                                !
 !                                                                           !
 !---------------------------------------------------------------------------!
+!
 
 
 ! Xft settings ---------------------------------------------------------------
@@ -318,3 +319,40 @@ URxvt.color252: #d0d0d0
 URxvt.color253: #dadada
 URxvt.color254: #e4e4e4
 URxvt.color255: #eeeeee
+
+! XTerm configuration
+XTerm*background:       #151515
+XTerm*foreground:       #999993
+XTerm*cursorColor:      white
+XTerm.vt100.geometry:   100x35
+XTerm*scrollBar:        false
+XTerm*scrollTtyOutput:  false
+XTerm*font:			    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
+!XTerm*boldFont:		    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
+!XTerm*boldMode:         false
+XTerm*allowBoldFonts:   false
+
+!! black
+XTerm.color0:                         #1a1a1a
+XTerm.color8:                         #404040
+! red
+XTerm.color1:                         #d75f5f
+XTerm.color9:                         #EA8484
+! green
+XTerm.color2:                         #87af5f
+XTerm.color10:                        #C7F09F
+! yellow
+XTerm.color3:                         #ffaf5f
+XTerm.color11:                        #FFCC9A
+! blue
+XTerm.color4:                         #87afd7
+XTerm.color12:                        #a5caef
+! magenta
+XTerm.color5:                         #8787af
+XTerm.color13:                        #A6A6DE
+! cyan
+XTerm.color6:                         #5f8787
+XTerm.color14:                        #69b2b2
+! white
+XTerm.color7:                         #808080
+XTerm.color15:                        #d7d7d7

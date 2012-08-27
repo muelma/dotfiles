@@ -68,7 +68,7 @@ beautiful.init(beautiful_theme)
 -- This is used later as the default terminal and editor to run.
 -- terminal = "gnome-terminal --hide-menubar"
 -- terminal = "urxvt"
-terminal = "xterm"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -281,18 +281,18 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
---    awful.key({"Mod1", "Control"}, "l",
---       function () awful.util.spawn("gnome-screensaver-command --lock") end),
---    awful.key({}, "#123", 
---        function () speaker.up() end),
---    awful.key({}, "#122", 
---        function () speaker.down() end),
---    awful.key({}, "#121", 
---        function () speaker.toggle() end),
---    awful.key({ modkey,           }, "F1",
---        function () awful.util.spawn("firefox", false) end),
---    awful.key({ modkey, }, "F10", 
---        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
+    awful.key({"Mod1", "Control"}, "l",
+       function () awful.util.spawn("gnome-screensaver-command --lock") end),
+    awful.key({}, "#123", 
+        function () speaker.up() end),
+    awful.key({}, "#122", 
+        function () speaker.down() end),
+    awful.key({}, "#121", 
+        function () speaker.toggle() end),
+    awful.key({ modkey,           }, "F1",
+        function () awful.util.spawn("firefox", false) end),
+    awful.key({ modkey, }, "F10", 
+        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -428,9 +428,33 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Opera" },
+      properties = {
+          tag = tags[screen.count()][1],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true }},
+    { rule = { class = "Firefox" },
+      properties = {
+          tag = tags[screen.count()][1],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true }},
+    { rule = { class = "Vimperator" },
+      properties = {
+          tag = tags[screen.count()][1],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true }},
+    { rule = { class = "Scribus" },
+      properties = {
+          floating = true}},
 }
 -- }}}
 
