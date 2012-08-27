@@ -544,11 +544,11 @@ else
 -- assuming that awesome was started outside a gnome-session
     -- r.run("ibamtray",nil,"/usr/bin/ibamtray")
     -- r.run("wicd-client","--tray","/usr/bin/wicd-client")
---    r.run("gnome-settings-daemon", nil, "/usr/bin/gnome-settings-daemon")
---    r.run("nm-applet", nil, "/usr/bin/nm-applet")
+    r.run("gnome-settings-daemon")
+    r.run("nm-applet")
 --    r.run("gnome-power-manager", nil, "/usr/bin/gnome-power-manager")
 --    r.run("gnome-volume-manager", nil, "/usr/bin/gnome-volume-manager")
---    r.run("eval `gnome-keyring-daemon`", nil, "/usr/bin/eval `gnome-keyring-daemon`")
+    r.run("eval `gnome-keyring-daemon`")
 end
 
 
