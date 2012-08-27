@@ -103,6 +103,7 @@ end
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "logout", cmd_ask_logout },
    { "quit", cmd_ask_shutdown },
 --   { "restart", awesome.restart },
 --   { "quit", awesome.quit }
@@ -497,30 +498,59 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-function run_once(prg,arg_string,pname,screen)
-    if not prg then
-        do return nil end
-    end
 
-    if not pname then
-       pname = prg
-    end
-
-    if not arg_string then 
-        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
-    else
-        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. arg_string .. ")",screen)
-    end
+--require("lfs")
+---- sudo apt-get install liblua5.1-filesystem0
+---- {{{ Run programm once
+--local function processwalker()
+--   local function yieldprocess()
+--      for dir in lfs.dir("/proc") do
+--        -- All directories in /proc containing a number, represent a process
+--        if tonumber(dir) ~= nil then
+--          local f, err = io.open("/proc/"..dir.."/cmdline")
+--          if f then
+--            local cmdline = f:read("*all")
+--            f:close()
+--            if cmdline ~= "" then
+--              coroutine.yield(cmdline)
+--            end
+--          end
+--        end
+--      end
+--    end
+--    return coroutine.wrap(yieldprocess)
+--end
+--
+--local function run_once(process, cmd)
+--   assert(type(process) == "string")
+--   local regex_killer = {
+--      ["+"]  = "%+", ["-"] = "%-",
+--      ["*"]  = "%*", ["?"]  = "%?" }
+--
+--   for p in processwalker() do
+--      if p:find(process:gsub("[-+?*]", regex_killer)) then
+--     return
+--      end
+--   end
+--   return awful.util.spawn(cmd or process)
+--end
+---- }}}
+local r = require("runonce")
+-- make session-dependant decisions
+if string.find(env_session, "gnome") then
+-- env_session contains gnome somewhere --> assuming that awesome was started via gnome-session
+    r.run("firefox")
+else
+-- assuming that awesome was started outside a gnome-session
+    -- r.run("ibamtray",nil,"/usr/bin/ibamtray")
+    -- r.run("wicd-client","--tray","/usr/bin/wicd-client")
+--    r.run("gnome-settings-daemon", nil, "/usr/bin/gnome-settings-daemon")
+--    r.run("nm-applet", nil, "/usr/bin/nm-applet")
+--    r.run("gnome-power-manager", nil, "/usr/bin/gnome-power-manager")
+--    r.run("gnome-volume-manager", nil, "/usr/bin/gnome-volume-manager")
+--    r.run("eval `gnome-keyring-daemon`", nil, "/usr/bin/eval `gnome-keyring-daemon`")
 end
 
--- run_once("ibamtray",nil,"/usr/bin/ibamtray")
--- run_once("wicd-client","--tray","/usr/bin/wicd-client")
--- run_once("gnome-settings-daemon", nil, "/usr/bin/gnome-settings-daemon")
--- run_once("nm-applet", nil, "/usr/bin/nm-applet")
--- run_once("gnome-power-manager", nil, "/usr/bin/gnome-power-manager")
--- run_once("gnome-volume-manager", nil, "/usr/bin/gnome-volume-manager")
--- run_once("eval `gnome-keyring-daemon`", nil, "/usr/bin/eval `gnome-keyring-daemon`")
 
---naughty.notify({ preset = naughty.config.presets.low, title = env_home, text=env_session })
 --naughty.notify({ text=cmd_vol_toggle })
 --naughty.notify({ text=cmd_vol_up })
