@@ -58,5 +58,10 @@ fi
 echo Symlinking dotfiles
 for x in $FILES;
 do
+    DIRECTORY=`dirname $HOME/$x`
+    if [ ! -d "$DIRECTORY" ]
+    then
+        mkdir -p "$DIRECTORY" 
+    fi
     ln -sf "$THISDIR/$x" "$HOME/$x"
 done
