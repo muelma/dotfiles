@@ -331,7 +331,7 @@ XTerm*font:			    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 XTerm*faceName:		    DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 !XTerm*boldFont:		    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 !XTerm*boldMode:         false
-XTerm*allowBoldFonts:   false
+!XTerm*allowBoldFonts:   false
 
 !! black
 XTerm*color0:                         #1a1a1a

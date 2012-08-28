@@ -427,7 +427,9 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = true,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     -- maximization does not lead to spaces at the border:
+                     size_hints_honor = false }},
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
@@ -449,15 +451,8 @@ awful.rules.rules = {
           fullscreen = false,
           maximized_vertical = true,
           maximized_horizontal = true,
-          floating = true }},
-    { rule = { class = "Vimperator" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true }},
+          floating = true,
+          size_hints_honor = false }},
     { rule = { class = "Scribus" },
       properties = {
           floating = true}},
