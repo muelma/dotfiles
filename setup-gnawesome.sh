@@ -18,10 +18,13 @@ Comment=Highly configurable framework window manager
 TryExec=awesome
 Exec=awesome
 NoDisplay=true
+X-GNOME-WMSettingsModule=awesome
+# name we put on the WM spec check window
 X-GNOME-WMName=Awesome
-X-GNOME-Autostart-Phase=WindowManager
-X-GNOME-Provides=windowmanager
-X-GNOME-Autostart-Notify=false
+X-GNOME-Autostart-Phase=WindowManager;Panel
+X-GNOME-Provides=windowmanager;panel
+X-GNOME-AutoRestart=true
+X-GNOME-Autostart-Notify=true
 EOF
 cat << 'EOF' > /usr/share/xsessions/gnome-awesome.desktop
 [Desktop Entry]
@@ -31,6 +34,5 @@ TryExec=/usr/bin/gnome-session
 Exec=gnome-session --session awesome
 Type=XSession
 EOF
-echo "login in your new session and type"
-echo "> gsettings set org.gnome.desktop.background show-desktop-icons false"
-echo "to disable right-clicking and gnome3 icons"
+echo "you might consider using gsetter.sh for disabling the desktop/icons"
+echo "and some other stuff that is not needed from gnome"

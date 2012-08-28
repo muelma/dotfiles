@@ -52,32 +52,32 @@ URxvt*shading:				 	10
 !	U R X V T - Colors						                              !
 !									                                      !
 !-------------------------------------------------------------------------!
-urxvt.background:                     #151515
-urxvt.foreground:                     #999993
+URxvt.background:                     #151515
+URxvt.foreground:                     #999993
 !! black
-urxvt.color0:                         #1a1a1a
-urxvt.color8:                         #404040
+URxvt.color0:                         #1a1a1a
+URxvt.color8:                         #404040
 ! red
-urxvt.color1:                         #d75f5f
-urxvt.color9:                         #EA8484
+URxvt.color1:                         #d75f5f
+URxvt.color9:                         #EA8484
 ! green
-urxvt.color2:                         #87af5f
-urxvt.color10:                        #C7F09F
+URxvt.color2:                         #87af5f
+URxvt.color10:                        #C7F09F
 ! yellow
-urxvt.color3:                         #ffaf5f
-urxvt.color11:                        #FFCC9A
+URxvt.color3:                         #ffaf5f
+URxvt.color11:                        #FFCC9A
 ! blue
-urxvt.color4:                         #87afd7
-urxvt.color12:                        #a5caef
+URxvt.color4:                         #87afd7
+URxvt.color12:                        #a5caef
 ! magenta
-urxvt.color5:                         #8787af
-urxvt.color13:                        #A6A6DE
+URxvt.color5:                         #8787af
+URxvt.color13:                        #A6A6DE
 ! cyan
-urxvt.color6:                         #5f8787
-urxvt.color14:                        #69b2b2
+URxvt.color6:                         #5f8787
+URxvt.color14:                        #69b2b2
 ! white
-urxvt.color7:                         #808080
-urxvt.color15:                        #d7d7d7
+URxvt.color7:                         #808080
+URxvt.color15:                        #d7d7d7
 
 ! 2 5 6 - C O L O R S =====================================================
 URxvt.color17: #00005f
@@ -328,31 +328,33 @@ XTerm.vt100.geometry:   100x35
 XTerm*scrollBar:        false
 XTerm*scrollTtyOutput:  false
 XTerm*font:			    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
+XTerm*faceName:		    DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 !XTerm*boldFont:		    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 !XTerm*boldMode:         false
 XTerm*allowBoldFonts:   false
 
 !! black
-XTerm.color0:                         #1a1a1a
-XTerm.color8:                         #404040
+XTerm*color0:                         #1a1a1a
+XTerm*color8:                         #404040
 ! red
-XTerm.color1:                         #d75f5f
-XTerm.color9:                         #EA8484
+XTerm*color1:                         #d75f5f
+XTerm*color9:                         #EA8484
 ! green
-XTerm.color2:                         #87af5f
-XTerm.color10:                        #C7F09F
+XTerm*color2:                         #87af5f
+XTerm*color10:                        #C7F09F
 ! yellow
-XTerm.color3:                         #ffaf5f
-XTerm.color11:                        #FFCC9A
+XTerm*color3:                         #ffaf5f
+XTerm*color11:                        #FFCC9A
 ! blue
-XTerm.color4:                         #87afd7
-XTerm.color12:                        #a5caef
+XTerm*color4:                         #87afd7
+XTerm*color12:                        #a5caef
 ! magenta
-XTerm.color5:                         #8787af
-XTerm.color13:                        #A6A6DE
+XTerm*color5:                         #8787af
+XTerm*color13:                        #A6A6DE
 ! cyan
-XTerm.color6:                         #5f8787
-XTerm.color14:                        #69b2b2
+XTerm*color6:                         #5f8787
+XTerm*color14:                        #69b2b2
 ! white
-XTerm.color7:                         #808080
-XTerm.color15:                        #d7d7d7
+XTerm*color7:                         #808080
+XTerm*color15:                        #d7d7d7
+

@@ -11,7 +11,8 @@ TEMP_TAR=$THISDIR/temp_dotfiles.tar
 
 OLDDIR=$HOME/dotfiles.old   # old dotfiles backup directory
 # find files living in this directory, excluding shell scripts (*.sh) and the .git directory
-FILES=$(find . -type f | grep -v ".sh$" | grep -v ".git")
+# and README.md
+FILES=$(find . -type f | grep -v ".sh$" | grep -v ".git" | grep -v "README.md")
 
 BACKUP_THESE=""
 for x in $FILES; do

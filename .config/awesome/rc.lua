@@ -61,14 +61,22 @@ cmd_vol_get    = "amixer " .. pulse_audio .. [[ sget Master |grep %|sed -r 's/.*
 cmd_ask_shutdown = "gnome-session-quit --power-off"
 cmd_ask_logout   = "gnome-session-quit --logout"
 
+if string.find(env_session, "gnome") then
+    cmd_quit_noask = function() awful.util.spawn("gnome-session-quit --logout --no-prompt") end
+else
+    cmd_quit_noask   = awesome.quit
+end
+
 -- Themes define colours, icons, and wallpapers
 beautiful.init(beautiful_theme)
 -- beautiful.init("/home/mmueller/.config/awesome/sky/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 -- terminal = "gnome-terminal --hide-menubar"
--- terminal = "urxvt"
 terminal = "urxvt"
+-- x-terminal-emulator for alternatives set by host system (amend later)
+--terminal = "x-terminal-emulator"
+
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -109,13 +117,11 @@ myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
    { "restart", awesome.restart },
+   { "logout", cmd_quit_noask},
 }
 
 if string.find(env_session, "gnome") then
     table.insert(myawesomemenu, { "shutdown", cmd_ask_shutdown})
-    table.insert(myawesomemenu, { "logout", cmd_ask_logout })
-else
-    table.insert(myawesomemenu, { "logout", awesome.quit})
 end
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
@@ -166,7 +172,7 @@ vicious.register(batwidget, vicious.widgets.bat,
                     batwidget_t:set_text(args[1] .. " ( " .. args[3] .. " )")
                     return args[2]
                 end, 
-                61, "BAT0")
+                7, "BAT0")
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
@@ -326,7 +332,7 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey, "Shift"   }, "q", cmd_quit_noask),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
@@ -542,3 +548,13 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 --naughty.notify({ text=cmd_vol_toggle })
 --naughty.notify({ text=cmd_vol_up })
 
+-- system tray colors for dark backgrounds
+xprop = assert(io.popen("xprop -root _NET_SUPPORTING_WM_CHECK"))
+wid = xprop:read():match("^_NET_SUPPORTING_WM_CHECK.WINDOW.: window id # (0x[%S]+)$")
+xprop:close()
+if wid then
+   wid = tonumber(wid) + 1
+   os.execute("xprop -id " .. wid .. " -format _NET_SYSTEM_TRAY_COLORS 32c " ..
+          "-set _NET_SYSTEM_TRAY_COLORS " ..
+          "65535,65535,65535,65535,8670,8670,65535,32385,0,8670,65535,8670")
+end

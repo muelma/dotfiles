@@ -14,6 +14,8 @@ local image = image
 local beautiful = beautiful
 local tonumber = tonumber
 local naughty = naughty
+local assert = assert
+
 local cmd_vol_get = cmd_vol_get or [[pacmd dump | grep -P "^set-sink-volume " | perl -p -i -e 's/.+\s(.x.+)$/$1/']]
 
 module("speaker")
@@ -23,7 +25,7 @@ local volicon = widget({ type = "imagebox" })
 volicon.image = image( icondir .. "spkr_01.png" )
 
 function get()
-    local f = io.popen(cmd_vol_get) -- runs command
+    local f = assert(io.popen(cmd_vol_get, 'r')) -- runs command
     local cur_vol = tonumber(f:read("*a")) or -1 -- read output of command
     f:close()
     if cur_vol == -1 then
