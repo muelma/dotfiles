@@ -50,12 +50,16 @@ beautiful_theme= confdir .. "themes/default/theme.lua"
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
--- pulse_audio = "-D pulse"
-pulse_audio = "-c 0"
-cmd_vol_toggle = "amixer " .. pulse_audio .. " -q sset Master toggle"
-cmd_vol_down   = "amixer " .. pulse_audio .. " -q sset Master 2%-"
-cmd_vol_up     = "amixer " .. pulse_audio .. " -q sset Master 2%+"
-cmd_vol_get    = "amixer " .. pulse_audio .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
+
+if os.execute("which pulseaudio") == 0 then
+    snd_device = "-D pulse"
+else
+    snd_device = "-c 0"
+end
+cmd_vol_toggle = "amixer " .. snd_device .. " -q sset Master toggle"
+cmd_vol_down   = "amixer " .. snd_device .. " -q sset Master 2%-"
+cmd_vol_up     = "amixer " .. snd_device .. " -q sset Master 2%+"
+cmd_vol_get    = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
 
 -- commands for restart, logout, shutdown
 cmd_ask_shutdown = "gnome-session-quit --power-off"
@@ -177,10 +181,16 @@ awful.widget.layout.margins[batwidget.widget] = { top = 6 }
 batwidget_t = awful.tooltip({ objects = {batwidget.widget}})
 vicious.register(batwidget, vicious.widgets.bat,
                 function (widget, args)
-                    batwidget_t:set_text(args[1] .. " ( " .. args[3] .. " )")
+                    battery_state = "full"
+                    if args[1] == "-" then
+                        battery_state = "discharging ... " .. args[3]
+                    elseif args[1] == "+" then
+                        battery_state = "charging ... " .. args[3]
+                    end
+                    batwidget_t:set_text(battery_state)
                     return args[2]
                 end, 
-                7, "BAT0")
+                61, "BAT0")
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
@@ -271,13 +281,15 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        space,
+        rbracket, diskwidget, lbracket,
+        space,
         rbracket, weatherwidget, lbracket,
         space,
         rbracket, batwidget.widget, baticon, lbracket,
         space,
         rbracket, spr, sic, lbracket,
         space,
-        diskwidget,
         s == screen.count() and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -558,7 +570,7 @@ wids = xprop:read("*a")
 xprop:close()
 -- check whether reading succeeded
 if wids ~= "" then
-    wid = wids:match("^_NET_SUPPORTING_WM_CHECK.WINDOW.: window id # (0x[%S]+)$")
+    wid = wids:match("^_NET_SUPPORTING_WM_CHECK.WINDOW.: window id # (0x[%S]+)%c+")
     if wid then
        wid = tonumber(wid) + 1
        os.execute("xprop -id " .. wid .. " -format _NET_SYSTEM_TRAY_COLORS 32c " ..
