@@ -72,11 +72,19 @@ beautiful.init(beautiful_theme)
 -- beautiful.init("/home/mmueller/.config/awesome/sky/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
--- terminal = "gnome-terminal --hide-menubar"
-terminal = "urxvt"
+terminal = ""
+-- sets the order of terminals to be tested
+terminals = { "urxvt", "xterm", "gnome-terminal --hide-menubar", "x-terminal-emulator" } 
+-- look whether terminal exists and take the first in the list that does exist
+for i, term in ipairs(terminals) do
+    terminal = term
+    if os.execute("which " .. terminal .. " >/dev/null ") == 0 then
+       break 
+    end
+end
+
 -- x-terminal-emulator for alternatives set by host system (amend later)
 --terminal = "x-terminal-emulator"
-
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -544,12 +552,17 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 --naughty.notify({ text=cmd_vol_up })
 
 -- system tray colors for dark backgrounds
+--
 xprop = assert(io.popen("xprop -root _NET_SUPPORTING_WM_CHECK"))
-wid = xprop:read():match("^_NET_SUPPORTING_WM_CHECK.WINDOW.: window id # (0x[%S]+)$")
+wids = xprop:read("*a")
 xprop:close()
-if wid then
-   wid = tonumber(wid) + 1
-   os.execute("xprop -id " .. wid .. " -format _NET_SYSTEM_TRAY_COLORS 32c " ..
-          "-set _NET_SYSTEM_TRAY_COLORS " ..
-          "65535,65535,65535,65535,8670,8670,65535,32385,0,8670,65535,8670")
+-- check whether reading succeeded
+if wids ~= "" then
+    wid = wids:match("^_NET_SUPPORTING_WM_CHECK.WINDOW.: window id # (0x[%S]+)$")
+    if wid then
+       wid = tonumber(wid) + 1
+       os.execute("xprop -id " .. wid .. " -format _NET_SYSTEM_TRAY_COLORS 32c " ..
+              "-set _NET_SYSTEM_TRAY_COLORS " ..
+              "65535,65535,65535,65535,8670,8670,65535,32385,0,8670,65535,8670")
+    end
 end
