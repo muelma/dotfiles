@@ -7,7 +7,6 @@
 DIR=$HOME/dotfiles                      # dotfiles directory
 BACKUP_FILE=$HOME/dotfiles_backup.tgz   # name for the backup file (uses tar)
 THISDIR=$(pwd)
-TEMP_TAR=$THISDIR/temp_dotfiles.tar
 
 OLDDIR=$HOME/dotfiles.old   # old dotfiles backup directory
 # find files living in this directory, excluding shell scripts (*.sh) and the .git directory
@@ -54,6 +53,7 @@ then
 fi
 
 #echo Copying dotfiles in $THISDIR to $HOME
+#TEMP_TAR=$THISDIR/temp_dotfiles.tar
 #cd $THISDIR && echo $FILES | xargs tar cf $TEMP_TAR && tar xf $TEMP_TAR -C $HOME && rm $TEMP_TAR
 echo Symlinking dotfiles
 for x in $FILES;

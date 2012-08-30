@@ -34,5 +34,6 @@ TryExec=/usr/bin/gnome-session
 Exec=gnome-session --session awesome
 Type=XSession
 EOF
+cp custom_awesome_badge.png /usr/share/unity-greeter/custom_gnome-awesome_badge.png
 echo "you might consider using gsetter.sh for disabling the desktop/icons"
 echo "and some other stuff that is not needed from gnome"
