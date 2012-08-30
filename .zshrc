@@ -15,6 +15,7 @@ setopt APPEND_HISTORY
 # setopt AUTO_REMOVE_SLASH
 # setopt AUTO_RESUME        # tries to resume command of same name
 unsetopt BG_NICE        # do NOT nice bg commands
+unsetopt correct_all    # hate autocorrection
 setopt CORRECT          # command CORRECTION
 setopt EXTENDED_HISTORY     # puts timestamps in the history
 # setopt HASH_CMDS      # turns on hashing
@@ -23,8 +24,8 @@ setopt MENUCOMPLETE
 setopt ALL_EXPORT
 
 # Set/unset  shell options
-setopt   notify globdots correct pushdtohome cdablevars autolist
-setopt   correctall autocd recexact longlistjobs
+setopt   notify globdots pushdtohome cdablevars autolist
+setopt   autocd recexact longlistjobs
 setopt   autoresume histignoredups pushdsilent 
 setopt   autopushd pushdminus extendedglob rcquotes mailwarning
 unsetopt bgnice autoparamslash
@@ -111,15 +112,15 @@ export PYTHONPATH=/home/marco/gitrepo/goni_source/scripts
 
 autoload -U compinit
 compinit
-bindkey "^?" backward-delete-char
-bindkey '^[[H' beginning-of-line
-bindkey '^[[F' end-of-line
-bindkey '^[[3~' delete-char
+bindkey "[7~" beginning-of-line
+bindkey "[8~" end-of-line
+bindkey "" backward-delete-char
+bindkey '[3~' delete-char
 bindkey '^[[5~' up-line-or-history
 bindkey '^[[6~' down-line-or-history
 bindkey "^r" history-incremental-search-backward
 bindkey ' ' magic-space    # also do history expansion on space
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+#bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
 
@@ -147,7 +148,6 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 
 # match uppercase from lowercase

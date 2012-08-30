@@ -46,6 +46,8 @@ URxvt.scrollBar:				off
 URxvt*transparent:			    true
 ! shading: 0-99 darken, 101-200 brighten
 URxvt*shading:				 	10
+!URxvt*keysym.Home:              \033[7~
+!URxvt*keysym.End:               \033[8~
 
 !-------------------------------------------------------------------------!
 !									                                      !
