@@ -11,7 +11,7 @@ THISDIR=$(pwd)
 OLDDIR=$HOME/dotfiles.old   # old dotfiles backup directory
 # find files living in this directory, excluding shell scripts (*.sh) and the .git directory
 # and README.md
-FILES=$(find . -type f | grep -v ".sh$" | grep -v ".git" | grep -v "README.md")
+FILES=$(find . -type f | grep -v ".sh$" | grep -v ".git" | grep -v "README.md" | grep -v ".png" )
 
 BACKUP_THESE=""
 for x in $FILES; do

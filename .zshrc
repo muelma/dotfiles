@@ -103,6 +103,8 @@ alias unimount='sshfs mueller@grawp.physik.uni-leipzig.de:/home/mueller /home/ma
 alias caps2super='setxkbmap -option caps:super'
 alias readywork='dualmonitor && unimount && ssh-add && workrave &'
 alias rtask="ssh mueller@hofmannsthal.physik.uni-leipzig.de \~/custom_usr/bin/task rc._forcecolor:on"
+alias x+="chmod +x"
+alias x-="chmod -x"
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=/home/marco/gitrepo/goni_source/scripts
