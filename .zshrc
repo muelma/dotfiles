@@ -1,4 +1,5 @@
 ######################################################################
+#       muelma's zshrc file, based on:
 #           jdong's zshrc file v0.2.1 , based on:
 #             mako's zshrc file, v0.1
 #
@@ -83,21 +84,18 @@ unsetopt ALL_EXPORT
 # # --------------------------------------------------------------------
 
 alias man='LC_ALL=C LANG=C man'
-alias ll='ls -al'
 alias ls='ls --color=auto '
+alias ll='ls -al'
 alias lf='find . ! -name . -prune -type f' # list files only
-alias offlineimap-tty='offlineimap -u TTY.TTYUI'
-alias hnb-partecs='hnb $HOME/partecs/partecs-hnb.xml'
-alias rest2html-css='rst2html --embed-stylesheet --stylesheet-path=/usr/share/python-docutils/s5_html/themes/default/print.css'
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
 alias lal='ls -al'
-alias okul='okular 2>/dev/null'
-alias canetti='ssh canetti.physik.uni-leipzig.de'
-alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
-alias beamerout='xrandr --output VGA1 --mode 1024x768 --rate 60'
+alias x+="chmod +x"
+alias x-="chmod -x"
+alias please="sudo !!"
 alias grawp='ssh grawp.physik.uni-leipzig.de'
+alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
 alias buechner='ssh buechner.physik.uni-leipzig.de'
 alias onyx='ssh onyx.physik.uni-leipzig.de'
 alias dualmonitor='xrandr --output VGA1 --auto --left-of LVDS1 &&  xrandr --output LVDS1 --auto'
@@ -105,8 +103,7 @@ alias unimount='sshfs mueller@grawp.physik.uni-leipzig.de:/home/mueller /home/ma
 alias caps2super='setxkbmap -option caps:super'
 alias readywork='dualmonitor && unimount && ssh-add && workrave &'
 alias rtask="ssh mueller@hofmannsthal.physik.uni-leipzig.de \~/custom_usr/bin/task rc._forcecolor:on"
-alias x+="chmod +x"
-alias x-="chmod -x"
+alias beamerout='xrandr --output VGA1 --mode 1024x768 --rate 60'
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=/home/marco/gitrepo/goni_source/scripts
