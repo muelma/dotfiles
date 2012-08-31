@@ -65,6 +65,7 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+
 #LANGUAGE=
 LC_ALL='en_US.UTF-8'
 LANG='en_US.UTF-8'
@@ -110,8 +111,7 @@ alias x-="chmod -x"
 export PATH=$PATH:~/scripts
 export PYTHONPATH=/home/marco/gitrepo/goni_source/scripts
 
-autoload -U compinit
-compinit
+bindkey -v
 bindkey "[7~" beginning-of-line
 bindkey "[8~" end-of-line
 bindkey "" backward-delete-char
@@ -121,6 +121,10 @@ bindkey '^[[6~' down-line-or-history
 bindkey "^r" history-incremental-search-backward
 bindkey ' ' magic-space    # also do history expansion on space
 #bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+
+autoload -U compinit
+compinit
+
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
 
