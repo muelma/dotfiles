@@ -85,9 +85,16 @@ endif
 
 set visualbell
 
-highlight OverLength ctermbg=red  ctermfg=white
-"darkblue ctermfg=white guibg=darkred
+" setting highlight colors
+" ------------------------
+" Folding:
+highlight Folded ctermbg=black ctermfg=yellow
+" Mark the 81th character on each line
+highlight OverLength ctermbg=black  ctermfg=red
 match OverLength '\%81v.'
+" search
+highlight Search ctermbg=black ctermfg=darkyellow
+
 setlocal spell spelllang=en_gb
 syntax spell toplevel
 set nospell
