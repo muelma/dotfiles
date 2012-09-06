@@ -93,7 +93,6 @@ alias ll='ls -l'
 alias lal='ls -al'
 alias x+="chmod +x"
 alias x-="chmod -x"
-alias please="sudo !!"
 alias grawp='ssh grawp.physik.uni-leipzig.de'
 alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
 alias buechner='ssh buechner.physik.uni-leipzig.de'
