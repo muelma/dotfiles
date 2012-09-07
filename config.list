@@ -3,3 +3,4 @@ Xresources	 	~/.Xresources
 zshrc			~/.zshrc
 vimrc           ~/.vimrc
 ssh_config		~/.ssh/config
+vim             ~/.vim
