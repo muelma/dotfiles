@@ -19,6 +19,11 @@ Setting up your home folder:
     ./bootstrap.sh
 
 If you don't want this, just copy the files from dotfiles in your $HOME directory. But you will have to repeat that after each update.
+    
+Update submodules (eg. for vim):
+
+    git submodule init
+    git submodule update
 
 ### Other scripts
 
