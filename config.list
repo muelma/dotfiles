@@ -1,0 +1,6 @@
+awesome			~/.config/awesome
+Xresources	 	~/.Xresources
+zsh             ~/.zsh
+zshrc			~/.zshrc
+vimrc           ~/.vimrc
+ssh_config		~/.ssh/config
