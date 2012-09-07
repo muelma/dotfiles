@@ -123,3 +123,5 @@ let g:tex_flavor='latex'
 set foldmethod=syntax
 set autochdir
 "set smartindent
+"map <C-F12> :!ctags -R -I --c++-kinds=+pl --fields=+iaS --extra=+q --languages=c++ .<CR>
+autocmd Filetype c,cpp set comments^=:///
