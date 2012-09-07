@@ -171,44 +171,30 @@ disk.addToWidget(diskwidget, 75, 90, true)
 -- name of the battery
 battery = "BAT0"
 -- test whether battery is present
-local battery_path = io.open("sys/class/power_supply/" .. battery)
-if battery_path then 
-    baticon = widget({ type = "imagebox"})
-    baticon.image = image( icondir .. "bat_full_02.png" )
+baticon = widget({ type = "imagebox"})
+baticon.image = image( icondir .. "bat_full_02.png" )
 
-    batwidget = awful.widget.progressbar()
-    batwidget:set_width(25)
-    batwidget:set_height(6)
-    batwidget:set_vertical(false)
-    batwidget:set_background_color("#434343")
-    batwidget:set_border_color(nil)
-    batwidget:set_gradient_colors({ beautiful.fg_normal, beautiful.fg_normal, beautiful.fg_normal, beautiful.bar })
-    awful.widget.layout.margins[batwidget.widget] = { top = 6 }
-    batwidget_t = awful.tooltip({ objects = {batwidget.widget}})
-    vicious.register(batwidget, vicious.widgets.bat,
-                    function (widget, args)
-                        battery_state = "full"
-                        if args[1] == "-" then
-                            battery_state = "discharging ... " .. args[3]
-                        elseif args[1] == "+" then
-                            battery_state = "charging ... " .. args[3]
-                        end
-                        batwidget_t:set_text(battery_state)
-                        return args[2]
-                    end, 
-                    61, battery)
-
-    rbracket_bat = rbracket
-    lbracket_bat = lbracket
-else
-    nowidget = widget({type = "textbox"})
-    nowidget.text = ""
-    baticon = nowidget
-    batwidget = nowidget
-    rbracket_bat = nowidget
-    lbracket_bat = nowidget
-end
-                
+batwidget = awful.widget.progressbar()
+batwidget:set_width(25)
+batwidget:set_height(6)
+batwidget:set_vertical(false)
+batwidget:set_background_color("#434343")
+batwidget:set_border_color(nil)
+batwidget:set_gradient_colors({ beautiful.fg_normal, beautiful.fg_normal, beautiful.fg_normal, beautiful.bar })
+awful.widget.layout.margins[batwidget.widget] = { top = 6 }
+batwidget_t = awful.tooltip({ objects = {batwidget.widget}})
+vicious.register(batwidget, vicious.widgets.bat,
+                function (widget, args)
+                    battery_state = "full"
+                    if args[1] == "-" then
+                        battery_state = "discharging ... " .. args[3]
+                    elseif args[1] == "+" then
+                        battery_state = "charging ... " .. args[3]
+                    end
+                    batwidget_t:set_text(battery_state)
+                    return args[2]
+                end, 
+                61, battery)
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
@@ -300,13 +286,13 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         space,
-        rbracket_bat, batwidget.widget, baticon, lbracket_bat,
-        space,
         rbracket, diskwidget, lbracket,
         space,
         rbracket, weatherwidget, lbracket,
         space,
         rbracket, spr, sic, lbracket,
+        space,
+        rbracket, batwidget.widget, baticon, lbracket,
         space,
         s == screen.count() and mysystray or nil,
         mytasklist[s],
