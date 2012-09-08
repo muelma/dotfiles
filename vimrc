@@ -3,122 +3,128 @@
 " ( ie. if has("autocmd") block )
 call pathogen#infect()
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
-
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
-  set hlsearch
-endif
+" turn on vim mode instead of vi mode
+" this command triggers many option settings, therefore
+" every other option should be set after this
+set nocompatible
+" however, prohibit modeline support for security
+" modelines are special lines in files that can alter the behaviour of vim
+" and/or execute malicious code through vim commands
+set modelines=0
+set nomodeline
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-"set background=dark
+" set background=dark
+" ... well, didn't like the colors ;-)
+" ... and time is too limited to set my own
+
+" enable syntax highlighting if present
+if has("syntax")
+    syntax on
+    set hlsearch
+    " setting highlight colors
+    " ------------------------
+    " this is highly customized to my likings
+    " and performs only with my .Xresources
+    "
+    " folding:
+        highlight Folded ctermbg=black ctermfg=yellow
+    " Mark the 81th character on each line
+        highlight OverLength ctermfg=78
+        match OverLength '\%81v.\+'
+    " search for patterns
+        highlight Search ctermbg=black ctermfg=darkyellow
+    " visual mode
+        highlight Visual ctermbg=darkgrey ctermfg=78
+    " parenthesis matching
+        highlight MatchParen ctermbg=grey ctermfg=black
+    " spell checking
+        highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
+        highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
+        highlight SpellLocal ctermfg=yellow cterm=underline ctermbg=black
+        highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
+endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
 if has("autocmd")
-  filetype plugin indent on
-  autocmd FileType text setlocal textwidth=78 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
+    filetype plugin indent on
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    " Also don't do it when the mark is in the first line, that is the default
+    " position when opening a file.
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+    " set doxygen comments for c/c++ source code
+    autocmd Filetype c,cpp set comments^=:///
 endif
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-set showcmd		" Show (partial) command in status line.
+set showcmd		    " Show (partial) command in status line.
 set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
+set ignorecase		" Do case insensitive matching
+set smartcase		" Do smart case matching (ie. only case insensitive if
+                    " no capital letters are present in the search pattern)
 set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set autowrite		" Automatically save before commands like :next and :make
 set tabstop=4		" number of spaces of tab
-set expandtab		" tabs are spaces
+set expandtab		" tabs are typed as spaces
 set shiftwidth=4    " number of spaces to (auto)indent
+set autochdir       " change into the directory of the last opened file
+"
+" TODO: check the following options -- useful?
+set foldmethod=syntax
+"set hidden         " Hide buffers when they are abandoned
+"set mouse=a		" Enable mouse usage (all modes)
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
-
+" set encoding
+" ( hate it so much ... )
+" ensures that vim defaults to utf-8 as often as possible
 if has("multi_byte") 
-  if &termencoding == "" 
+    " termencoding defines the terminal encoding (how the keyboard is
+    " interpreted
+    if &termencoding == "" 
     let &termencoding = &encoding 
-  endif 
-  set encoding=utf-8 
-  setglobal fileencoding=utf-8 bomb 
-  set fileencodings=ucs-bom,utf-8,latin1 
+    endif 
+    " internal representaton
+    set encoding=utf-8
+    " set default encoding
+    setglobal fileencoding=utf-8
+    " bomb is rather useless in utf-8 thus commented
+    " setglobal bomb
+    " when opening a file, test the following encodings and 
+    " stick to the first match
+    set fileencodings=ucs-bom,utf-8,latin1 
 endif 
 
-set laststatus=2
 if has("statusline")
- set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+    " always show the status line
+    set laststatus=2
+    " content of the statusline
+    " shows filename, modifications, encoding, line, row, percentage
+    set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 endif
 
-set visualbell
+" don't beep on error
+set noerrorbells visualbell t_vb=
 
-" setting highlight colors
-" ------------------------
-" Folding:
-highlight Folded ctermbg=black ctermfg=yellow
-" Mark the 81th character on each line
-highlight OverLength ctermbg=black  ctermfg=red
-match OverLength '\%81v.'
-" search
-highlight Search ctermbg=black ctermfg=darkyellow
-
+" spell checking 
 setlocal spell spelllang=en_gb
 syntax spell toplevel
+" deactivate ( since I am probably reading source code )
 set nospell
 
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-filetype plugin on
+" vim latex plugin
 "
-" " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" " can be called correctly.
-" set shellslash
-"
-" " IMPORTANT: grep will sometimes skip displaying the file name if you
-" " search in a singe file. This will confuse Latex-Suite. Set your grep
-" " program to always generate a file-name.
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+" ( better safe than sorry )
 set grepprg=grep\ -nH\ $*
-"
-" " OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-"
-" " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults
-" to
-" " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" " The following changes the default filetype back to 'tex':
+" Starting with Vim 7, the filetype of empty .tex files defaults to 
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
-
-set foldmethod=syntax
-set autochdir
-"set smartindent
-"map <C-F12> :!ctags -R -I --c++-kinds=+pl --fields=+iaS --extra=+q --languages=c++ .<CR>
-autocmd Filetype c,cpp set comments^=:///

@@ -103,6 +103,7 @@ alias caps2super='setxkbmap -option caps:super'
 alias readywork='dualmonitor && unimount && ssh-add && workrave &'
 alias rtask="ssh mueller@hofmannsthal.physik.uni-leipzig.de \~/custom_usr/bin/task rc._forcecolor:on"
 alias beamerout='xrandr --output VGA1 --mode 1024x768 --rate 60'
+alias please='history | tail -n 1 | sed "s/[0-9 ][0-9 ]*//" | xargs sudo'
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=/home/marco/gitrepo/goni_source/scripts
