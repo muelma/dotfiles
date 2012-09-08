@@ -30,9 +30,6 @@ if has("syntax")
     "
     " folding:
         highlight Folded ctermbg=black ctermfg=yellow
-    " Mark the 81th character on each line
-        highlight OverLength ctermfg=78
-        match OverLength '\%81v.\+'
     " search for patterns
         highlight Search ctermbg=black ctermfg=darkyellow
     " visual mode
@@ -62,6 +59,13 @@ if has("autocmd")
 
     " set doxygen comments for c/c++ source code
     autocmd Filetype c,cpp set comments^=:///
+
+    " Mark the 81th character on each line
+    " this way it works also in tabs
+    if has("syntax")
+        highlight OverLength ctermfg=78
+        autocmd BufWinEnter * let w:m2=matchadd('OverLength', '\%>80v.\+', -1)
+    endif
 
     " header with time informations
     autocmd BufNewFile *.{c,cpp,h,hpp} call InsertSkeleton("cpp_header.txt")
