@@ -39,7 +39,7 @@ zmodload -ap zsh/mapfile mapfile &>/dev/null
 
 
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
-TZ="America/New_York"
+TZ="Europe/Berlin"
 HISTFILE=$HOME/.zhistory
 HISTSIZE=1000
 SAVEHIST=1000
