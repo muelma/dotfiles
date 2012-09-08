@@ -63,19 +63,32 @@ if has("autocmd")
     autocmd Filetype c,cpp set comments^=:///
 endif
 
-set showcmd		    " Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching (ie. only case insensitive if
-                    " no capital letters are present in the search pattern)
-set incsearch		" Incremental search
-set autowrite		" Automatically save before commands like :next and :make
-set tabstop=4		" number of spaces of tab
-set expandtab		" tabs are typed as spaces
-set shiftwidth=4    " number of spaces to (auto)indent
-set shiftround      " use multiples of shiftwidth when indenting blocks
-set autochdir       " change into the directory of the last opened file
-"
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ignorecase          " Do case insensitive matching
+set smartcase           " Do smart case matching (ie. only case insensitive if
+                        " no capital letters are present in the search pattern)
+set incsearch           " Incremental search
+set autowrite           " save before commands like :next and :make
+set tabstop=4           " number of spaces of tab
+set expandtab           " tabs are typed as spaces
+set shiftwidth=4        " number of spaces to (auto)indent
+set shiftround          " use multiples of shiftwidth when indenting blocks
+set autochdir           " change into the directory of the last opened file
+set title               " set terminal title
+set pastetoggle=<F2>    " paste mode via F2 key
+
+" save some keystrokes     
+noremap ; :
+
+" don't beep on error
+set noerrorbells visualbell t_vb=
+" spell checking 
+setlocal spell spelllang=en_gb
+syntax spell toplevel
+" deactivate ( since I am probably reading source code )
+set nospell
+
 " TODO: check the following options -- useful?
 set foldmethod=syntax
 "set hidden         " Hide buffers when they are abandoned
@@ -109,17 +122,8 @@ if has("statusline")
     set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 endif
 
-" don't beep on error
-set noerrorbells visualbell t_vb=
-
-" spell checking 
-setlocal spell spelllang=en_gb
-syntax spell toplevel
-" deactivate ( since I am probably reading source code )
-set nospell
-
 " vim latex plugin
-"
+" ----------------
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -129,3 +133,6 @@ set grepprg=grep\ -nH\ $*
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+" ----------------
+
+
