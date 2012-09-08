@@ -60,7 +60,7 @@ BROWSER='opera'
 PS1="[$PR_BLUE%n$PR_WHITE@$PR_GREEN%U%m%u$PR_NO_COLOR:$PR_RED%2c$PR_NO_COLOR]%(!.#.$) "
 #RPS1="$PR_LIGHT_YELLOW(%D{%m-%d %H:%M})$PR_NO_COLOR"
 function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/ n }/(main|viins)/ i }"
+    RPS1="${${KEYMAP/vicmd/ n }/(main|viins)/ i }%(?..[$PR_RED%?$PR_NO_COLOR] )"
     RPS2=$RPS1
     zle reset-prompt
 }

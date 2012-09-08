@@ -73,6 +73,7 @@ set autowrite		" Automatically save before commands like :next and :make
 set tabstop=4		" number of spaces of tab
 set expandtab		" tabs are typed as spaces
 set shiftwidth=4    " number of spaces to (auto)indent
+set shiftround      " use multiples of shiftwidth when indenting blocks
 set autochdir       " change into the directory of the last opened file
 "
 " TODO: check the following options -- useful?
