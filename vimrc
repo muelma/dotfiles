@@ -35,7 +35,7 @@ if has("syntax")
     " visual mode
         highlight Visual ctermbg=darkgrey ctermfg=78
     " parenthesis matching
-        highlight MatchParen ctermbg=grey ctermfg=black
+        highlight MatchParen ctermbg=lightgrey ctermfg=black
     " spell checking
         highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
         highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
@@ -122,9 +122,11 @@ if has("autocmd")
         if &modified
             let save_cursor = getpos(".")
             let n = min([20, line("$")])
+            keepjumps exe '1,' . n . 's#^\(.\{,10}Filename: \).*#\1' .
+                        \ expand("%:t") . '#e'
             keepjumps exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
                         \ strftime('%x %X (%Z)') . '#e'
-            call histdel('search', -1)
+            call histdel('search', -2)
             call setpos('.', save_cursor)
         endif
     endfun
