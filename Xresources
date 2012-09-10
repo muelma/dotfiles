@@ -43,7 +43,7 @@ URxvt.scrollBar:				off
 !URxvt.urlLauncher:				firefox
 !URxvt.matcher.button:			1
 !URxvt.urgentOnBell:  			true
-URxvt*transparent:			    true
+URxvt*transparent:			    false
 ! shading: 0-99 darken, 101-200 brighten
 URxvt*shading:				 	10
 !URxvt*keysym.Home:              \033[7~
