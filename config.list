@@ -5,3 +5,4 @@ vimrc           ~/.vimrc
 ssh_config		~/.ssh/config
 vim             ~/.vim
 Xmodmap         ~/.Xmodmap
+terminfo        ~/.terminfo
