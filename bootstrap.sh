@@ -51,3 +51,6 @@ do
     echo "installing $SYMLINK_E -> $TARGET_FULL"
     ln -snf "$TARGET_FULL" "$SYMLINK_E"
 done < "$CONFIG_FILE"
+
+git submodule init
+git submodule update

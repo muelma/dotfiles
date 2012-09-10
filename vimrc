@@ -12,6 +12,7 @@ set nocompatible
 " and/or execute malicious code through vim commands
 set modelines=0
 set nomodeline
+colorscheme desert
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -28,19 +29,24 @@ if has("syntax")
     " this is highly customized to my likings
     " and performs only with my .Xresources
     "
-    " folding:
-        highlight Folded ctermbg=black ctermfg=yellow
-    " search for patterns
-        highlight Search ctermbg=black ctermfg=darkyellow
+    " ------------------------------------
+    " commented due to colorscheme desert:
+    "" 
+    "" folding:
+    "    highlight Folded ctermbg=black ctermfg=yellow
+    "" search for patterns
+    "    highlight Search ctermbg=black ctermfg=darkyellow
     " visual mode
-        highlight Visual ctermbg=darkgrey ctermfg=78
-    " parenthesis matching
-        highlight MatchParen ctermbg=lightgrey ctermfg=black
-    " spell checking
-        highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
-        highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
-        highlight SpellLocal ctermfg=yellow cterm=underline ctermbg=black
-        highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
+        highlight Visual ctermbg=darkgrey ctermfg=lightyellow
+    "" parenthesis matching
+    "    highlight MatchParen ctermbg=lightgrey ctermfg=black
+    "" spell checking
+    "    highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
+    "    highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
+    "    highlight SpellLocal ctermfg=yellow cterm=underline ctermbg=black
+    "    highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
+    " beautify the menu (better than black && violett)
+        highlight Pmenu ctermbg=darkgrey ctermfg=white
 endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
@@ -63,7 +69,7 @@ if has("autocmd")
     " Mark the 81th character on each line
     " this way it works also in tabs
     if has("syntax")
-        highlight OverLength ctermfg=78
+        highlight OverLength ctermfg=lightyellow
         autocmd BufWinEnter * let w:m2=matchadd('OverLength', '\%>80v.\+', -1)
     endif
 
@@ -205,4 +211,17 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 " ----------------
 
+" autocompletion with clang_complete, snipmate and supertab
+" Complete options (disable preview scratch window)
+"set completeopt = menu,menuone,longest
+" Limit popup menu height
+set pumheight=15
 
+" SuperTab option for context aware completion
+let g:SuperTabDefaultCompletionType = "context"
+
+" Disable auto popup, use <Tab> to autocomplete
+let g:clang_complete_auto = 0
+" Show clang errors in the quickfix window
+"let g:clang_complete_copen = 1
+let g:clang_user_options='|| exit 0'
