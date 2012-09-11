@@ -12,6 +12,10 @@ Clone it from github:
 
     git clone https://github.com/muelma/dotfiles.git
 
+Or, if you are using ssh keys:
+
+    git clone git@github.com:muelma/dotfiles.git
+
 I suggest you to read and understand the bootstrap.sh - script. It looks for all files contained in the dotfiles directory and it's subdirectories, then it walks through your $HOME-directory putting all dotfiles with the same name into a tar.gz for backup. Then all dotfiles in your $HOME-directory and its subdirectories get symlinked into the dotfiles directory.
 Setting up your home folder:
 

@@ -33,18 +33,18 @@ if has("syntax")
     " commented due to colorscheme desert:
     "" 
     "" folding:
-    "    highlight Folded ctermbg=black ctermfg=yellow
+        highlight Folded ctermbg=black ctermfg=yellow
     "" search for patterns
-    "    highlight Search ctermbg=black ctermfg=darkyellow
+        highlight Search ctermbg=black ctermfg=darkyellow
     " visual mode
         highlight Visual ctermbg=darkgrey ctermfg=lightyellow
     "" parenthesis matching
-    "    highlight MatchParen ctermbg=lightgrey ctermfg=black
+        highlight MatchParen ctermbg=lightgrey ctermfg=black
     "" spell checking
-    "    highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
-    "    highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
-    "    highlight SpellLocal ctermfg=yellow cterm=underline ctermbg=black
-    "    highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
+        highlight SpellBad ctermfg=darkred cterm=underline ctermbg=black
+        highlight SpellCap ctermfg=yellow cterm=underline ctermbg=black
+        highlight SpellLocal ctermfg=yellow cterm=underline ctermbg=black
+        highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
     " beautify the menu (better than black && violett)
         highlight Pmenu ctermbg=darkgrey ctermfg=white
 endif
@@ -160,10 +160,9 @@ noremap ; :
 " don't beep on error
 set noerrorbells visualbell t_vb=
 " spell checking 
-setlocal spell spelllang=en_gb
 syntax spell toplevel
-" deactivate ( since I am probably reading source code )
-set nospell
+map <F5> :setlocal spell! spelllang=en_us<CR>
+imap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
 
 " TODO: check the following options -- useful?
 set foldmethod=syntax
