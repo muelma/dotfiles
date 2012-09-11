@@ -1,0 +1,5 @@
+libboost-all-dev
+clang
+cmake
+vim
+rxvt-unicode-256color
