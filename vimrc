@@ -78,12 +78,6 @@ if has("autocmd")
     autocmd BufNewFile *.{h,hpp} call InsertIncludeGuard()
     autocmd BufWritePre,FileWritePre *.{c,cpp,h,hpp} call LastModified()
 
-    function! s:insert_gates()
-    endfunction
-
-    function! InsertHeader()
-    endfunction
-
     function! InsertSkeleton(fname)
         let path_to_skeletons = $HOME . "/.vim/templates/" 
         " Save cpoptions
@@ -96,15 +90,12 @@ if has("autocmd")
         exe "set cpoptions=" . cpoptions
         " Delete the first line into the black-hole register
         1, 1 delete _
-        " Search for Filename:
-        call search("Filename:")
+        " Search for @file:
+        call search("@file:")
         exe "normal A " . expand("%:t")
-        " Search for Created:
+        " Search for @date:
         let current_time = strftime("%x %X (%Z)")
-        call search("Created:")
-        exe "normal A " . current_time
-        " Search for Last modified:
-        call search("Last modified:")
+        call search("@date:")
         exe "normal A " . current_time
         exe "normal Go "
     endfunction
@@ -121,18 +112,14 @@ if has("autocmd")
         exe "normal GO" 
     endfunction
 
-    " If buffer modified, update any 'Last modified: ' in the first 20 lines.
-    " 'Last modified: ' can have up to 10 characters before (they are retained).
-    " Restores cursor and window position using save_cursor variable.
+    " Update the filename if changed
     function! LastModified()
         if &modified
             let save_cursor = getpos(".")
             let n = min([20, line("$")])
-            keepjumps exe '1,' . n . 's#^\(.\{,10}Filename: \).*#\1' .
+            keepjumps exe '1,' . n . 's#^\(.\{,10}@file: \).*#\1' .
                         \ expand("%:t") . '#e'
-            keepjumps exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
-                        \ strftime('%x %X (%Z)') . '#e'
-            call histdel('search', -2)
+            call histdel('search', -1)
             call setpos('.', save_cursor)
         endif
     endfun

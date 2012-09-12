@@ -1,13 +1,9 @@
 /******************************************************************************
  *
- * Filename:
+ * @file:
  *
- * Version: 1.0
- * Created:
- * Last modified:
- * Revision: None
+ * @date:
  *
- * Author: Marco Müller
- * e-mail: muelma@gmail.com
+ * @author: Marco Müller <muelma@gmail.com>
  *
  ******************************************************************************/
