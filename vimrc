@@ -30,7 +30,6 @@ if has("syntax")
     " and performs only with my .Xresources
     "
     " ------------------------------------
-    " commented due to colorscheme desert:
     "" 
     "" folding:
         highlight Folded ctermbg=black ctermfg=yellow
@@ -63,8 +62,16 @@ if has("autocmd")
         \   exe "normal! g`\"" |
         \ endif
 
-    " set doxygen comments for c/c++ source code
-    autocmd Filetype c,cpp set comments^=:///
+    " Commenting blocks of code.
+    autocmd FileType c,cpp,java,scala let b:comment_leader = '/// '
+    autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+    autocmd FileType conf,fstab       let b:comment_leader = '# '
+    autocmd FileType tex              let b:comment_leader = '% '
+    autocmd FileType mail             let b:comment_leader = '> '
+    autocmd FileType vim              let b:comment_leader = '" '
+    noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+    noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
 
     " Mark the 81th character on each line
     " this way it works also in tabs
