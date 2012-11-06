@@ -311,6 +311,14 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({ modkey, "Shift"   }, "n", 
+        function()
+            local tag = awful.tag.selected()
+                for i=1, #tag:clients() do
+                    tag:clients()[i].minimized=false
+                    tag:clients()[i]:redraw()
+            end
+        end),
     awful.key({"Mod1", "Control"}, "l",
        function () awful.util.spawn("gnome-screensaver-command --lock") end),
     awful.key({}, "#123", 
