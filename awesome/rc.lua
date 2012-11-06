@@ -7,9 +7,9 @@ require("beautiful")
 -- Notification library
 require("naughty")
 -- Widgets
-require("vicious")
+vicious = require("vicious")
 -- Debian menu entries
-require("debian.menu")
+-- require("debian.menu")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -40,7 +40,7 @@ end
 
 -- gather some information
 env_home = os.getenv("HOME")
-env_session = os.getenv("DESKTOP_SESSION")
+env_session = os.getenv("DESKTOP_SESSION") or ""
 confdir = env_home .. "/.config/awesome/"
 icondir = confdir .. "icons/"
 
@@ -137,7 +137,7 @@ if string.find(env_session, "gnome") then
 end
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
+--                                    { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
