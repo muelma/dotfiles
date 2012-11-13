@@ -39,7 +39,7 @@ URxvt.scrollBar:				off
 !URxvt.tabbed.tabbar-bg: 		-1
 !URxvt.tabbed.tab-fg:    		4
 !URxvt.tabbed.tab-bg:    		-1
-!URxvt*termName:				 	rxvt-256color
+URxvt*termName:				 	rxvt-256color
 !URxvt.urlLauncher:				firefox
 !URxvt.matcher.button:			1
 !URxvt.urgentOnBell:  			true
