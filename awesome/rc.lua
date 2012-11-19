@@ -78,7 +78,7 @@ beautiful.init(beautiful_theme)
 -- This is used later as the default terminal and editor to run.
 terminal = ""
 -- sets the order of terminals to be tested
-terminals = { "urxvt", "xterm", "gnome-terminal --hide-menubar", "x-terminal-emulator" } 
+terminals = { "xterm","urxvt", "gnome-terminal --hide-menubar", "x-terminal-emulator" } 
 -- look whether terminal exists and take the first in the list that does exist
 for i, term in ipairs(terminals) do
     terminal = term
