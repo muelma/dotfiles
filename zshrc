@@ -94,6 +94,7 @@ alias lal='ls -al'
 alias x+="chmod +x"
 alias x-="chmod -x"
 alias grawp='ssh grawp.physik.uni-leipzig.de'
+alias dobby='ssh dobby.physik.uni-leipzig.de'
 alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
 alias buechner='ssh buechner.physik.uni-leipzig.de'
 alias onyx='ssh onyx.physik.uni-leipzig.de'
