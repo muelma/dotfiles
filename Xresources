@@ -328,7 +328,7 @@ XTerm*foreground:       #999993
 XTerm*cursorColor:      white
 XTerm.vt100.geometry:   100x35
 XTerm*scrollBar:        false
-XTerm*scrollTtyOutput:  false
+XTerm*scrollTtyOutput:  true
 XTerm*font:			    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 XTerm*faceName:		    DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 XTerm*termName:         xterm-256color
