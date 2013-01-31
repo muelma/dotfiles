@@ -110,6 +110,7 @@ alias gitdiff="git diff --color"
 alias dotgit="git --git-dir $HOME/dotfiles/.git --work-tree $HOME/dotfiles"
 alias g11="g++ -std=c++11"
 alias clang11="clang++ -std=c++11"
+alias ipython="ipython --pylab"
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=~/gitrepo/goni_source/scripts
