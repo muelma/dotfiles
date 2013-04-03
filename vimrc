@@ -141,9 +141,9 @@ set smartcase           " Do smart case matching (ie. only case insensitive if
                         " no capital letters are present in the search pattern)
 set incsearch           " Incremental search
 set autowrite           " save before commands like :next and :make
-set tabstop=4           " number of spaces of tab
+set tabstop=2           " number of spaces of tab
 set expandtab           " tabs are typed as spaces
-set shiftwidth=4        " number of spaces to (auto)indent
+set shiftwidth=2        " number of spaces to (auto)indent
 set shiftround          " use multiples of shiftwidth when indenting blocks
 set autochdir           " change into the directory of the last opened file
 set title               " set terminal title
@@ -203,6 +203,23 @@ set grepprg=grep\ -nH\ $*
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode $*'
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_ViewRule_pdf = 'evince'
+" let g:TTarget = 'pdf'
+" Set the warning messages to ignore.
+let g:Tex_IgnoredWarnings =
+\"Underfull\n".
+\"Overfull\n".
+\"specifier changed to\n".
+\"You have requested\n".
+\"Missing number, treated as zero.\n".
+\"There were undefined references\n".
+\"Citation %.%# undefined\n".
+\'LaTeX Font Warning:'"
+" This number N says that latex-suite should ignore the first N of the above.
+let g:Tex_IgnoreLevel = 8
+let g:Tex_MultipleCompileFormats = 'pdf'
 " ----------------
 
 " autocompletion with clang_complete, snipmate and supertab

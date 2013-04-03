@@ -329,8 +329,10 @@ globalkeys = awful.util.table.join(
         function () speaker.toggle() end),
     awful.key({ modkey,           }, "F1",
         function () awful.util.spawn("firefox", false) end),
-    awful.key({ modkey, }, "F10", 
-        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
+--    awful.key({ modkey, }, "F10", 
+--        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
+    awful.key({ modkey,           }, "F2",
+        function () awful.util.spawn("quodlibet", false) end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -488,6 +490,15 @@ awful.rules.rules = {
     { rule = { class = "Scribus" },
       properties = {
           floating = true}},
+    { rule = { class = "quodlibet" },
+      properties = {
+          tag = tags[screen.count()][2],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true,
+          size_hints_honor = false }},
 }
 -- }}}
 

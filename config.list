@@ -1,9 +1,10 @@
-awesome			~/.config/awesome
-Xresources	 	~/.Xresources
-zshrc			~/.zshrc
+awesome			    ~/.config/awesome
+Xresources	 	  ~/.Xresources
+zshrc			      ~/.zshrc
 vimrc           ~/.vimrc
-ssh_config		~/.ssh/config
+ssh_config      ~/.ssh/config
 vim             ~/.vim
 Xmodmap         ~/.Xmodmap
 terminfo        ~/.terminfo
 pythonstartup   ~/.pythonstartup
+user-dirs.dirs  ~/.config/user-dirs.dirs

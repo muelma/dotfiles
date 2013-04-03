@@ -70,7 +70,7 @@ zle -N zle-keymap-select
 #LANGUAGE=
 LC_ALL='en_US.UTF-8'
 LANG='en_US.UTF-8'
-LC_CTYPE=C
+LC_CTYPE='en_US.UTF-8'
 
 if [ $SSH_TTY ]; then
   MUTT_EDITOR=vim
@@ -208,3 +208,6 @@ zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+__git_files () { 
+    _wanted files expl 'local files' _files     
+}
