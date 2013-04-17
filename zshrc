@@ -98,6 +98,7 @@ alias dobby='ssh dobby.physik.uni-leipzig.de'
 alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
 alias buechner='ssh buechner.physik.uni-leipzig.de'
 alias onyx='ssh onyx.physik.uni-leipzig.de'
+alias kreacher='ssh kreacher.physik.uni-leipzig.de'
 alias dualmonitor='xrandr --output VGA1 --auto --left-of LVDS1 &&  xrandr --output LVDS1 --auto'
 alias unimount='sshfs mueller@grawp.physik.uni-leipzig.de:/home/mueller $HOME/uni-mount/'
 alias caps2super='setxkbmap -option caps:super'
@@ -111,6 +112,7 @@ alias dotgit="git --git-dir $HOME/dotfiles/.git --work-tree $HOME/dotfiles"
 alias g11="g++ -std=c++11"
 alias clang11="clang++ -std=c++11"
 alias ipython="ipython --pylab"
+alias pdflatex='pdflatex --interaction=nonstopmode '
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=~/gitrepo/goni_source/scripts
