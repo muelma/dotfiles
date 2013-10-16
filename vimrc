@@ -142,6 +142,7 @@ set smartcase           " Do smart case matching (ie. only case insensitive if
 set incsearch           " Incremental search
 set autowrite           " save before commands like :next and :make
 set tabstop=2           " number of spaces of tab
+set nosmartindent
 set expandtab           " tabs are typed as spaces
 set shiftwidth=2        " number of spaces to (auto)indent
 set shiftround          " use multiples of shiftwidth when indenting blocks
@@ -158,6 +159,9 @@ set noerrorbells visualbell t_vb=
 syntax spell toplevel
 map <F5> :setlocal spell! spelllang=en_us<CR>
 imap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
+
+" toggle wrapping with F2
+map <F2> :set wrap!<CR>
 
 " TODO: check the following options -- useful?
 set foldmethod=syntax

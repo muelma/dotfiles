@@ -478,6 +478,7 @@ awful.rules.rules = {
           maximized_vertical = true,
           maximized_horizontal = true,
           floating = true }},
+    { rule = { name = "OpenGl" }, properties = { floating = true }},
     { rule = { class = "Firefox" },
       properties = {
           tag = tags[screen.count()][1],
@@ -499,6 +500,8 @@ awful.rules.rules = {
           maximized_horizontal = true,
           floating = true,
           size_hints_honor = false }},
+    { rule = { instance = "plugin-container" },
+      properties = { floating = true } },
 }
 -- }}}
 

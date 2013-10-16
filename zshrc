@@ -46,7 +46,7 @@ SAVEHIST=1000
 HOSTNAME=`hostname`
 PAGER='less'
 EDITOR='vim'
-BROWSER='opera'
+BROWSER='firefox'
     autoload colors zsh/terminfo
     if [[ "$terminfo[colors]" -ge 8 ]]; then
    colors
@@ -115,8 +115,9 @@ alias ipython="ipython --pylab"
 alias pdflatex='pdflatex --interaction=nonstopmode '
 
 export PATH=$PATH:~/scripts
-export PYTHONPATH=~/gitrepo/goni_source/scripts
+export PYTHONPATH=~/simulations_src/GIM/source_diploma/scripts
 export PYTHONSTARTUP=~/.pythonstartup
+export GNUTERM=x11
 
 bindkey -v
 bindkey "[7~" beginning-of-line
