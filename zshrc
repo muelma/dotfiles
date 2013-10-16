@@ -83,6 +83,7 @@ unsetopt ALL_EXPORT
 # # aliases
 # # --------------------------------------------------------------------
 
+alias matlab='/net/grawp/opt/MATLAB/R2013a/bin/matlab'
 alias man='LC_ALL=C LANG=C man'
 alias ls='ls --color=auto '
 alias ll='ls -al'
