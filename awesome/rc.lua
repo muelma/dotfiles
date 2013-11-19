@@ -60,13 +60,16 @@ cmd_vol_toggle = "amixer " .. snd_device .. " -q sset Master toggle"
 cmd_vol_down   = "amixer " .. snd_device .. " -q sset Master 2%-"
 cmd_vol_up     = "amixer " .. snd_device .. " -q sset Master 2%+"
 cmd_vol_get    = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
-
+-- command for activating screensaver/lock screen
+cmd_screensaver = "xflock4"
 -- commands for restart, logout, shutdown
-cmd_ask_shutdown = "gnome-session-quit --power-off"
-cmd_ask_logout   = "gnome-session-quit --logout"
+cmd_ask_shutdown = "xfce4-session-logout --halt"
+cmd_ask_logout   = "xfce4-session-logout"
 
 if string.find(env_session, "gnome") then
     cmd_quit_noask = function() awful.util.spawn("gnome-session-quit --logout --no-prompt") end
+elseif string.find(env_session, "xfce") then
+    cmd_quit_noask = function() awful.util.spawn("xfce4-session-logout --logout") end
 else
     cmd_quit_noask   = awesome.quit
 end
@@ -132,7 +135,7 @@ myawesomemenu = {
    { "logout", cmd_quit_noask},
 }
 
-if string.find(env_session, "gnome") then
+if string.find(env_session, "xfce") or string.find(env_session, "gnome") then
     table.insert(myawesomemenu, { "shutdown", cmd_ask_shutdown})
 end
 
@@ -320,7 +323,7 @@ globalkeys = awful.util.table.join(
             end
         end),
     awful.key({"Mod1", "Control"}, "l",
-       function () awful.util.spawn("gnome-screensaver-command --lock") end),
+       function () awful.util.spawn( cmd_screensaver ) end),
     awful.key({}, "#123", 
         function () speaker.up() end),
     awful.key({}, "#122", 
