@@ -1,9 +1,17 @@
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
-local cmd_vol_toggle = cmd_vol_toggle or "amixer -D pulse -q sset Master toggle"
-local cmd_vol_down   = cmd_vol_down   or "amixer -D pulse -q sset Master 2%-"
-local cmd_vol_up     = cmd_vol_up     or "amixer -D pulse -q sset Master 2%+"
+
+local snd_device = snd_device
+local perc_change = volume_percentage_change or 2
+local cmd_vol_toggle = "amixer " .. snd_device .. " -q sset Master toggle"
+local cmd_vol_down   = "amixer " .. snd_device .. " -q sset Master " .. perc_change .. "%-"
+local cmd_vol_up     = "amixer " .. snd_device .. " -q sset Master " .. perc_change .. "%+"
+local cmd_vol_get    = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
+
+-- local cmd_vol_toggle = cmd_vol_toggle or "amixer -D pulse -q sset Master toggle"
+-- local cmd_vol_down   = cmd_vol_down   or "amixer -D pulse -q sset Master 2%-"
+-- local cmd_vol_up     = cmd_vol_up     or "amixer -D pulse -q sset Master 2%+"
 
 local icondir = icondir -- icondir from rc.lua
 local widget = widget
@@ -15,12 +23,13 @@ local beautiful = beautiful
 local tonumber = tonumber
 local naughty = naughty
 local assert = assert
+local timer = timer
 
 local cmd_vol_get = cmd_vol_get or [[pacmd dump | grep -P "^set-sink-volume " | perl -p -i -e 's/.+\s(.x.+)$/$1/']]
 
 module("speaker")
+
 local vol_muted = false 
-local last_perc = 0
 ---- volume ♫ 
 local volicon = widget({ type = "imagebox" })
 volicon.image = image( icondir .. "spkr_01.png" )
@@ -29,6 +38,8 @@ function get()
     local cur_vol = tonumber(awful.util.pread(cmd_vol_get))
     return cur_vol/100
 end
+
+local vol = get()*100
 
 function is_mute(percentage)
     if vol_muted then return "off", 0
@@ -65,28 +76,27 @@ end
 function update()
 --    if vol_muted then volicon.image = image( icondir .. "spkr_03.png" ) 
 ----    else volicon.image = image( icondir .. "spkr_01.png" )
-    local perc = get()
-    while perc == last_perc and perc ~= 0 and perc ~= 100 do
-      perc = get()
-    end
-    last_perc = perc
-    vol_prog:set_value(perc)
-    vol_prog_t:set_text(math.floor(perc*100) .. "%")
+    vol_prog:set_value(vol/100)
+    vol_prog_t:set_text(math.floor(vol) .. "%")
 --    naughty.notify({ text = "update()", timeout = 2})
 end
 
 function up()
     if not vol_muted then 
-      last_perc = get()
+      vol = get()*100
       awful.util.spawn(cmd_vol_up)
+      vol = vol + perc_change
+      if vol > 100 then vol = 100 end
       update()
     end
 end
 
 function down()
     if not vol_muted then 
-      last_perc = get()
+      vol = get()*100
       awful.util.spawn(cmd_vol_down)
+      vol = vol - perc_change
+      if vol < 0 then vol = 0 end
       update()
     end
 end

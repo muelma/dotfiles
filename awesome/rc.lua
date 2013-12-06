@@ -56,10 +56,10 @@ if os.execute("which pulseaudio") == 0 then
 else
     snd_device = "-c 0"
 end
-cmd_vol_toggle = "amixer " .. snd_device .. " -q sset Master toggle"
-cmd_vol_down   = "amixer " .. snd_device .. " -q sset Master 2%-"
-cmd_vol_up     = "amixer " .. snd_device .. " -q sset Master 2%+"
-cmd_vol_get    = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
+
+-- increase or decrease volume by this number of %
+volume_percentage_change = 2 
+
 -- command for activating screensaver/lock screen
 cmd_screensaver = "xflock4"
 -- commands for restart, logout, shutdown
