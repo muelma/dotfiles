@@ -20,19 +20,14 @@ local cmd_vol_get = cmd_vol_get or [[pacmd dump | grep -P "^set-sink-volume " | 
 
 module("speaker")
 local vol_muted = false 
+local last_perc = 0
 ---- volume ♫ 
 local volicon = widget({ type = "imagebox" })
 volicon.image = image( icondir .. "spkr_01.png" )
 
 function get()
-    local f = assert(io.popen(cmd_vol_get, 'r')) -- runs command
-    local cur_vol = tonumber(f:read("*a")) or -1 -- read output of command
-    f:close()
-    if cur_vol == -1 then
-        naughty.notify({ preset = naughty.config.presets.critical, title="Speaker Widget Error", text = "Error retrieving current volume, check cmd_vol_get in rc.lua!"})
-        return 1
-    end
-    return cur_vol/100.0
+    local cur_vol = tonumber(awful.util.pread(cmd_vol_get))
+    return cur_vol/100
 end
 
 function is_mute(percentage)
@@ -71,12 +66,18 @@ function update()
 --    if vol_muted then volicon.image = image( icondir .. "spkr_03.png" ) 
 ----    else volicon.image = image( icondir .. "spkr_01.png" )
     local perc = get()
+    while perc == last_perc and perc ~= 0 and perc ~= 100 do
+      perc = get()
+    end
+    last_perc = perc
     vol_prog:set_value(perc)
     vol_prog_t:set_text(math.floor(perc*100) .. "%")
+--    naughty.notify({ text = "update()", timeout = 2})
 end
 
 function up()
     if not vol_muted then 
+      last_perc = get()
       awful.util.spawn(cmd_vol_up)
       update()
     end
@@ -84,6 +85,7 @@ end
 
 function down()
     if not vol_muted then 
+      last_perc = get()
       awful.util.spawn(cmd_vol_down)
       update()
     end
