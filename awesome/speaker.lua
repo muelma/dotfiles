@@ -1,10 +1,10 @@
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
-
 local cmd_vol_toggle = cmd_vol_toggle or "amixer -D pulse -q sset Master toggle"
 local cmd_vol_down   = cmd_vol_down   or "amixer -D pulse -q sset Master 2%-"
 local cmd_vol_up     = cmd_vol_up     or "amixer -D pulse -q sset Master 2%+"
+
 local icondir = icondir -- icondir from rc.lua
 local widget = widget
 local io = io
@@ -76,12 +76,16 @@ function update()
 end
 
 function up()
-    awful.util.spawn(cmd_vol_up)
-    update()
+    if not vol_muted then 
+      awful.util.spawn(cmd_vol_up)
+      update()
+    end
 end
 
 function down()
-    awful.util.spawn(cmd_vol_down)
-    update()
+    if not vol_muted then 
+      awful.util.spawn(cmd_vol_down)
+      update()
+    end
 end
 --
