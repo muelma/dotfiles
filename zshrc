@@ -41,8 +41,8 @@ zmodload -ap zsh/mapfile mapfile &>/dev/null
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="Europe/Berlin"
 HISTFILE=$HOME/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 HOSTNAME=`hostname`
 PAGER='less'
 EDITOR='vim'
