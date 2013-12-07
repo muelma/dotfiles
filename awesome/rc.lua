@@ -74,6 +74,9 @@ else
     cmd_quit_noask   = awesome.quit
 end
 
+-- make naughty icons 64pts small (eg. for quodlibet)
+naughty.config.default_preset.icon_size = 64
+
 -- Themes define colours, icons, and wallpapers
 beautiful.init(beautiful_theme)
 -- beautiful.init("/home/mmueller/.config/awesome/sky/theme.lua")
