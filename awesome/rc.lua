@@ -65,6 +65,7 @@ cmd_screensaver = "xflock4"
 -- commands for restart, logout, shutdown
 cmd_ask_shutdown = "xfce4-session-logout --halt"
 cmd_ask_logout   = "xfce4-session-logout"
+cmd_ask_hibernate = "sudo pm-hibernate"
 
 if string.find(env_session, "gnome") then
     cmd_quit_noask = function() awful.util.spawn("gnome-session-quit --logout --no-prompt") end
@@ -135,15 +136,18 @@ myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
    { "restart", awesome.restart },
-   { "logout", cmd_quit_noask},
+}
+mysessionmenu = {
+   { "logout menu", cmd_ask_logout},
+   { "force logout", cmd_quit_noask},
+   { "shutdown", cmd_ask_shutdown},
+   { "- hibernate -", cmd_quit_hibernate}
 }
 
-if string.find(env_session, "xfce") or string.find(env_session, "gnome") then
-    table.insert(myawesomemenu, { "shutdown", cmd_ask_shutdown})
-end
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
 --                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "session", mysessionmenu },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -335,6 +339,8 @@ globalkeys = awful.util.table.join(
         function () speaker.toggle() end),
     awful.key({ modkey,           }, "F1",
         function () awful.util.spawn("firefox", false) end),
+    awful.key({ modkey,           }, "F12",
+        function () awful.util.spawn("env PULSE_LATENCY_MSEC=60 skype", false) end),
 --    awful.key({ modkey, }, "F10", 
 --        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
     awful.key({ modkey,           }, "F2",
