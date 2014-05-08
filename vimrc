@@ -14,6 +14,25 @@ set modelines=0
 set nomodeline
 colorscheme desert
 
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ignorecase          " Do case insensitive matching
+set smartcase           " Do smart case matching (ie. only case insensitive if
+                        " no capital letters are present in the search pattern)
+set incsearch           " Incremental search
+set autowrite           " save before commands like :next and :make
+set tabstop=2           " number of spaces of tab
+set nosmartindent
+set expandtab           " tabs are typed as spaces
+set shiftwidth=2        " number of spaces to (auto)indent
+set shiftround          " use multiples of shiftwidth when indenting blocks
+set autochdir           " change into the directory of the last opened file
+set title               " set terminal title
+set pastetoggle=<F2>    " paste mode via F2 key
+
+" save some keystrokes     
+noremap ; :
+
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 " set background=dark
@@ -134,24 +153,6 @@ if has("autocmd")
 
 endif
 
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set ignorecase          " Do case insensitive matching
-set smartcase           " Do smart case matching (ie. only case insensitive if
-                        " no capital letters are present in the search pattern)
-set incsearch           " Incremental search
-set autowrite           " save before commands like :next and :make
-set tabstop=2           " number of spaces of tab
-set nosmartindent
-set expandtab           " tabs are typed as spaces
-set shiftwidth=2        " number of spaces to (auto)indent
-set shiftround          " use multiples of shiftwidth when indenting blocks
-set autochdir           " change into the directory of the last opened file
-set title               " set terminal title
-set pastetoggle=<F2>    " paste mode via F2 key
-
-" save some keystrokes     
-noremap ; :
 
 " don't beep on error
 set noerrorbells visualbell t_vb=
@@ -220,9 +221,10 @@ let g:Tex_IgnoredWarnings =
 \"Missing number, treated as zero.\n".
 \"There were undefined references\n".
 \"Citation %.%# undefined\n".
-\'LaTeX Font Warning:'"
+\"LaTeX Font Warning:\n".
+\"LaTeX Warning: Command:\n"
 " This number N says that latex-suite should ignore the first N of the above.
-let g:Tex_IgnoreLevel = 8
+let g:Tex_IgnoreLevel = 9
 let g:Tex_MultipleCompileFormats = 'pdf'
 " ----------------
 
@@ -240,3 +242,5 @@ let g:clang_complete_auto = 0
 " Show clang errors in the quickfix window
 "let g:clang_complete_copen = 1
 let g:clang_user_options='|| exit 0'
+map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
+imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
