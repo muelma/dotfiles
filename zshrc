@@ -93,10 +93,10 @@ alias ll='ls -l'
 alias lal='ls -al'
 alias x+="chmod +x"
 alias x-="chmod -x"
+alias zernike='ssh zernike.physik.uni-leipzig.de'
 alias grawp='ssh grawp.physik.uni-leipzig.de'
 alias dobby='ssh dobby.physik.uni-leipzig.de'
 alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
-alias buechner='ssh buechner.physik.uni-leipzig.de'
 alias fermi='ssh fermi.physik.uni-leipzig.de'
 alias kreacher='ssh kreacher.physik.uni-leipzig.de'
 alias dualmonitor='xrandr --output VGA1 --auto --left-of LVDS1 &&  xrandr --output LVDS1 --auto'
@@ -105,17 +105,20 @@ alias caps2super='setxkbmap -option caps:super'
 alias readywork='dualmonitor && unimount && ssh-add && workrave &'
 alias rtask="ssh mueller@hofmannsthal.physik.uni-leipzig.de \~/custom_usr/bin/task rc._forcecolor:on"
 alias beamerout='xrandr --output VGA1 --mode 1024x768 --rate 60'
+alias beamer_out_auto='xrandr --output VGA1 --auto'
 alias please='sudo `history | tail -n 1 | sed -e "s/[0-9 ][0-9 ]*//" -e "s/\n//"`'
 alias sudo="sudo " # this way sudo uses alias expansion
 alias gitdiff="git diff --color"
 alias dotgit="git --git-dir $HOME/dotfiles/.git --work-tree $HOME/dotfiles"
 alias g11="g++ -std=c++11"
 alias clang11="clang++ -std=c++11"
-alias ipython="ipython --pylab"
+#alias ipython="ipython --pylab"
 alias pdflatex='pdflatex --interaction=nonstopmode '
+alias skype='env PULSE_LATENCY_MSEC=30 skype'
+alias scriptdir='cd ~/simulations_src/scripts/temp_save_goni_fixed_scripts/'
 
 export PATH=$PATH:~/scripts
-export PYTHONPATH=~/simulations_src/GIM/source_diploma/scripts
+export PYTHONPATH=~/simulations_src/scripts/
 export PYTHONSTARTUP=~/.pythonstartup
 export GNUTERM=x11
 
@@ -214,3 +217,8 @@ zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~
 __git_files () { 
     _wanted files expl 'local files' _files     
 }
+#if [ -x /usr/games/fortune ] ; then
+#  /usr/games/fortune
+#fi
+
+
