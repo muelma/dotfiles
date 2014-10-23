@@ -29,6 +29,7 @@ set shiftround          " use multiples of shiftwidth when indenting blocks
 set autochdir           " change into the directory of the last opened file
 set title               " set terminal title
 set pastetoggle=<F2>    " paste mode via F2 key
+set backspace=indent,eol,start " fix most backspace problems on remote machines
 
 " save some keystrokes     
 noremap ; :
@@ -208,7 +209,7 @@ set grepprg=grep\ -nH\ $*
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
-let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode $*'
+let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode --shell-escape $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'evince'
 " let g:TTarget = 'pdf'
@@ -226,6 +227,7 @@ let g:Tex_IgnoredWarnings =
 " This number N says that latex-suite should ignore the first N of the above.
 let g:Tex_IgnoreLevel = 9
 let g:Tex_MultipleCompileFormats = 'pdf'
+let g:Tex_GotoError=0
 " ----------------
 
 " autocompletion with clang_complete, snipmate and supertab

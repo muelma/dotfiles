@@ -9,3 +9,4 @@ terminfo        ~/.terminfo
 pythonstartup   ~/.pythonstartup
 user-dirs.dirs  ~/.config/user-dirs.dirs
 muttrc          ~/.muttrc
+matplotlibrc    ~/.matplotlib/matplotlibrc

@@ -94,8 +94,9 @@ alias lal='ls -al'
 alias x+="chmod +x"
 alias x-="chmod -x"
 alias zernike='ssh zernike.physik.uni-leipzig.de'
-alias grawp='ssh grawp.physik.uni-leipzig.de'
+alias shodan='ssh shodan.physik.uni-leipzig.de'
 alias dobby='ssh dobby.physik.uni-leipzig.de'
+alias emmy='ssh emmy.physik.uni-leipzig.de'
 alias hofmannsthal='ssh hofmannsthal.physik.uni-leipzig.de'
 alias fermi='ssh fermi.physik.uni-leipzig.de'
 alias kreacher='ssh kreacher.physik.uni-leipzig.de'
@@ -136,6 +137,7 @@ bindkey ' ' magic-space    # also do history expansion on space
 autoload -U compinit
 compinit
 
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
 
