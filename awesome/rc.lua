@@ -5,11 +5,37 @@ require("awful.rules")
 -- Theme handling library
 require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
 -- Widgets
 vicious = require("vicious")
 -- Debian menu entries
 -- require("debian.menu")
+local calendar = nil
+local offset = 0
+
+function remove_calendar()
+    if calendar ~= nil then
+        naughty.destroy(calendar)
+        calendar = nil
+        offset = 0
+    end
+end
+
+function add_calendar(inc_offset)
+    local save_offset = offset
+    remove_calendar()
+    offset = save_offset + inc_offset
+    local datespec = os.date("*t")
+    datespec = datespec.year * 12 + datespec.month - 1 + offset
+    datespec = (datespec % 12 + 1) .. " " .. math.floor(datespec / 12)
+    local cal = awful.util.pread("cal -m" .. datespec .. " -h")
+    cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
+    calendar = naughty.notify({
+        text = string.format('<span font_desc="%s">%s</span>', "monospace", os.date("%a, %d %B %Y") .. "\n" .. cal),
+        timeout = 0, hover_timeout = 0.5,
+        width = 160,
+    })
+end
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -65,7 +91,7 @@ cmd_screensaver = "xflock4"
 -- commands for restart, logout, shutdown
 cmd_ask_shutdown = "xfce4-session-logout --halt"
 cmd_ask_logout   = "xfce4-session-logout"
-cmd_ask_hibernate = "sudo pm-hibernate"
+cmd_ask_hibernate = "xfce4-session-logout --hibernate"
 
 if string.find(env_session, "gnome") then
     cmd_quit_noask = function() awful.util.spawn("gnome-session-quit --logout --no-prompt") end
@@ -141,7 +167,7 @@ mysessionmenu = {
    { "logout menu", cmd_ask_logout},
    { "force logout", cmd_quit_noask},
    { "shutdown", cmd_ask_shutdown},
-   { "- hibernate -", cmd_quit_hibernate}
+   { "- hibernate -", cmd_ask_hibernate}
 }
 
 
@@ -167,6 +193,21 @@ space.text = " "
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
+-- change clockbox for your clock widget (e.g. mytextclock)
+mytextclock:add_signal("mouse::enter", function()
+  add_calendar(0)
+end)
+mytextclock:add_signal("mouse::leave", remove_calendar)
+--
+--mytextclock:buttons(awful.util.table.join(
+--    button({ }, 4, function()
+--        add_calendar(-1)
+--    end),
+--    button({ }, 5, function()
+--        add_calendar(1)
+--    end)
+--))
+
 
 diskwidget = widget({ type = 'textbox' })
 diskwidget.text = "du"
@@ -494,6 +535,15 @@ awful.rules.rules = {
     { rule = { class = "Firefox" },
       properties = {
           tag = tags[screen.count()][1],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true,
+          size_hints_honor = false }},
+    { rule = { class = "Chromium" },
+      properties = {
+          tag = tags[screen.count()][9],
           switchtotag = true,
           fullscreen = false,
           maximized_vertical = true,
