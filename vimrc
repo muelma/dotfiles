@@ -66,6 +66,8 @@ if has("syntax")
         highlight SpellRare ctermfg=yellow cterm=underline ctermbg=black
     " beautify the menu (better than black && violett)
         highlight Pmenu ctermbg=darkgrey ctermfg=white
+    " remove last search result highlighting
+    " nnoremap <silent><esc> :noh<cr><esc>
 endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
@@ -159,8 +161,8 @@ endif
 set noerrorbells visualbell t_vb=
 " spell checking 
 syntax spell toplevel
-map <F5> :setlocal spell! spelllang=en_us<CR>
-imap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
+map <F9> :setlocal spell! spelllang=en_us<CR>
+imap <F9> <C-o>:setlocal spell! spelllang=en_us<CR>
 
 " toggle wrapping with F2
 map <F2> :set wrap!<CR>
