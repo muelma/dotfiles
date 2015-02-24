@@ -1,13 +1,13 @@
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
-
 local snd_device = snd_device
 local perc_change = volume_percentage_change or 2
 local cmd_vol_toggle = "amixer " .. snd_device .. " -q sset Master toggle"
 local cmd_vol_down   = "amixer " .. snd_device .. " -q sset Master " .. perc_change .. "%-"
 local cmd_vol_up     = "amixer " .. snd_device .. " -q sset Master " .. perc_change .. "%+"
 local cmd_vol_get    = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(.*)%\].*/\1/' | head -n 1]]
+local cmd_mute_get   = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 's/.*\[(o.*)\].*/\1/' | head -n 1]]
 
 -- local cmd_vol_toggle = cmd_vol_toggle or "amixer -D pulse -q sset Master toggle"
 -- local cmd_vol_down   = cmd_vol_down   or "amixer -D pulse -q sset Master 2%-"
@@ -24,12 +24,25 @@ local tonumber = tonumber
 local naughty = naughty
 local assert = assert
 local timer = timer
+local string = string
 
 local cmd_vol_get = cmd_vol_get or [[pacmd dump | grep -P "^set-sink-volume " | perl -p -i -e 's/.+\s(.x.+)$/$1/']]
 
 module("speaker")
 
-local vol_muted = false 
+local vol_muted = nil 
+if string.find(awful.util.pread(cmd_mute_get), "off", 1, true) then
+  vol_muted = false 
+else
+  vol_muted = true
+end
+-- naughty.notify({ text = is_muted, timeout = 2})
+--if vol_muted then
+--  naughty.notify({ text = "it is off", timeout = 2})
+--else
+--  naughty.notify({ text = "it is on", timeout = 2})
+--end
+
 ---- volume ♫ 
 local volicon = widget({ type = "imagebox" })
 volicon.image = image( icondir .. "spkr_01.png" )
@@ -54,7 +67,9 @@ vol_prog:set_background_color("#434343")
 vol_prog:set_border_color(nil)
 vol_prog:set_gradient_colors({ beautiful.fg_normal, beautiful.fg_normal, beautiful.fg_normal, beautiful.bar })
 awful.widget.layout.margins[vol_prog.widget] = { top = 6 }
-vol_prog:set_value(get())
+--vol_prog:set_value(get())
+if vol_muted then vol_prog:set_value(0.0)
+else vol_prog:set_value(get()) end
 local vol_prog_t = awful.tooltip({ objects = {vol_prog.widget}})
 vol_prog.widget:buttons(awful.util.table.join(
     awful.button({ }, 3, function () toggle() end),
