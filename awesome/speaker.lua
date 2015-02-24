@@ -32,9 +32,9 @@ module("speaker")
 
 local vol_muted = nil 
 if string.find(awful.util.pread(cmd_mute_get), "off", 1, true) then
-  vol_muted = false 
-else
   vol_muted = true
+else
+  vol_muted = false 
 end
 -- naughty.notify({ text = is_muted, timeout = 2})
 --if vol_muted then
