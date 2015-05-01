@@ -84,13 +84,18 @@ end
 function toggle()
     awful.util.spawn(cmd_vol_toggle)
     vol_muted = not vol_muted
-    if vol_muted then vol_prog:set_value(0.0)
-    else vol_prog:set_value(get()) end
+    if vol_muted then 
+      vol_prog:set_value(0.0)
+      volicon.image = image(icondir .. "spkr_02.png")
+    else 
+      vol_prog:set_value(get()) 
+      volicon.image = image(icondir .. "spkr_01.png")
+    end
 end
 
 function update()
 --    if vol_muted then volicon.image = image( icondir .. "spkr_03.png" ) 
-----    else volicon.image = image( icondir .. "spkr_01.png" )
+--    else volicon.image = image( icondir .. "spkr_01.png" )
     vol_prog:set_value(vol/100)
     vol_prog_t:set_text(math.floor(vol) .. "%")
 --    naughty.notify({ text = "update()", timeout = 2})
