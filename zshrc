@@ -81,7 +81,7 @@ unsetopt ALL_EXPORT
 # # --------------------------------------------------------------------
 # # aliases
 # # --------------------------------------------------------------------
-
+alias fixtikz='convert -quality 99 -density 30' # input output.jpg
 alias matlab='/net/grawp/opt/MATLAB/R2013a/bin/matlab'
 alias man='LC_ALL=C LANG=C man'
 alias ls='ls --color=auto '
