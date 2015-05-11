@@ -1,0 +1,59 @@
+! Xft settings ---------------------------------------------------------------
+Xft.dpi:                        96
+Xft.antialias:                  true
+Xft.rgba:                       rgb
+Xft.hinting:                    true
+Xft.hintstyle:                  hintsfull
+Xft.autohint:                   0
+Xft.lcdfilter:                  lcddefault
+
+!----------------------------------------------------------------------------!
+!									                                         !
+!	U R X V T - Settings						                             !
+!									                                         !
+!----------------------------------------------------------------------------!
+URxvt*depth:					32
+URxvt*scrollBar_right:			true
+!URxvt*font:					    xft:consolas:pixelsize=10:antialias=true
+URxvt*font:					    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
+!URxvt*font:						xft:Ubuntu Mono:pixelsize=14,style=regular
+Urxvt*cursorColor:				white
+URxvt*scrollColor:				#111111
+!URxvt*perl-ext-common:			default,clipboard,tabbed,matcher
+URxvt.scrollBar:				off
+!URxvt.tabbed.tabbar-fg:			 7
+!URxvt.tabbed.tabbar-bg: 		-1
+!URxvt.tabbed.tab-fg:    		4
+!URxvt.tabbed.tab-bg:    		-1
+URxvt*termName:				 	rxvt-256color
+!URxvt.urlLauncher:				firefox
+!URxvt.matcher.button:			1
+!URxvt.urgentOnBell:  			true
+URxvt*transparent:			    false
+! shading: 0-99 darken, 101-200 brighten
+URxvt*shading:				 	10
+!URxvt*keysym.Home:              \033[7~
+!URxvt*keysym.End:               \033[8~
+!Theme Twenty-Four
+*color0:  rgb:00/00/00
+*color1:  rgb:cd/5c/5c
+*color2:  rgb:8e/ae/71
+*color3:  rgb:d2/b4/8c
+*color4:  rgb:5f/7b/8a
+*color5:  rgb:cd/cd/b4
+*color6:  rgb:68/68/68
+*color7:  rgb:ff/ff/ff
+*color8:  rgb:00/00/00
+*color9:  rgb:ee/63/63
+*color10: rgb:95/c7/49
+*color11: rgb:cd/cd/c1
+*color12: rgb:6b/7b/8a
+*color13: rgb:cd/cd/b4
+*color14: rgb:77/87/98
+*color15: rgb:ca/ca/ca
+
+XTerm.vt100.geometry:   100x35
+XTerm*scrollBar:        false
+XTerm*scrollTtyOutput:  true
+XTerm*font:			        xft:DejaVu Sans Mono:style=Book:pixelsize=16:antialias=true
+XTerm*faceName:		      DejaVu Sans Mono:style=Book:pixelsize=16:antialias=true
