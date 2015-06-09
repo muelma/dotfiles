@@ -121,11 +121,11 @@ if has("autocmd")
         " Delete the first line into the black-hole register
         1, 1 delete _
         " Search for @file:
-        call search("@file:")
+        call search("@file")
         exe "normal A " . expand("%:t")
         " Search for @date:
         let current_time = strftime("%x %X (%Z)")
-        call search("@date:")
+        call search("@date")
         exe "normal A " . current_time
         exe "normal Go "
     endfunction
@@ -214,6 +214,7 @@ let g:tex_flavor='latex'
 let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode --shell-escape $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'evince'
+let g:Tex_SmartKeyQuote = 0
 " let g:TTarget = 'pdf'
 " Set the warning messages to ignore.
 let g:Tex_IgnoredWarnings =
@@ -225,9 +226,10 @@ let g:Tex_IgnoredWarnings =
 \"There were undefined references\n".
 \"Citation %.%# undefined\n".
 \"LaTeX Font Warning:\n".
-\"LaTeX Warning: Command:\n"
+\"LaTeX Warning: Command:\n".
+\"inputting\n"
 " This number N says that latex-suite should ignore the first N of the above.
-let g:Tex_IgnoreLevel = 9
+let g:Tex_IgnoreLevel = 10
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_GotoError=0
 " ----------------
