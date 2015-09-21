@@ -213,8 +213,8 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode --shell-escape $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'evince'
-let g:Tex_SmartKeyQuote = 0
+let g:Tex_ViewRule_pdf = 'evince 2>/dev/null'
+" let g:Tex_SmartKeyQuote = 0
 " let g:TTarget = 'pdf'
 " Set the warning messages to ignore.
 let g:Tex_IgnoredWarnings =

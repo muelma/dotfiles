@@ -36,6 +36,7 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile &>/dev/null
 
+LS_COLORS='ow=103;30;01'
 
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="Europe/Berlin"
@@ -81,7 +82,7 @@ unsetopt ALL_EXPORT
 # # --------------------------------------------------------------------
 # # aliases
 # # --------------------------------------------------------------------
-alias fixtikz='convert -quality 99 -density 30' # input output.jpg
+alias fixtikz='convert -quality 99 -density 600' # input output.jpg
 alias matlab='/net/grawp/opt/MATLAB/R2013a/bin/matlab'
 alias man='LC_ALL=C LANG=C man'
 alias ls='ls --color=auto '
@@ -117,6 +118,7 @@ alias clang11="clang++ -std=c++11"
 alias pdflatex='pdflatex --interaction=nonstopmode '
 alias skype='env PULSE_LATENCY_MSEC=30 skype'
 alias scriptdir='cd ~/simulations_src/scripts/temp_save_goni_fixed_scripts/'
+alias evince='evince 2>/dev/null'
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=~/simulations_src/scripts/
