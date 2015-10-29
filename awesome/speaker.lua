@@ -14,10 +14,10 @@ local cmd_mute_get   = "amixer " .. snd_device .. [[ sget Master |grep %|sed -r 
 -- local cmd_vol_up     = cmd_vol_up     or "amixer -D pulse -q sset Master 2%+"
 
 local icondir = icondir -- icondir from rc.lua
-local widget = widget
 local io = io
 local math = math
 local awful = awful
+local wibox = wibox
 local image = image
 local beautiful = beautiful
 local tonumber = tonumber
@@ -44,8 +44,8 @@ end
 --end
 
 ---- volume ♫ 
-local volicon = widget({ type = "imagebox" })
-volicon.image = image( icondir .. "spkr_01.png" )
+local volicon = wibox.widget.imagebox()
+volicon:set_image(icondir .. "spkr_01.png")
 
 function get()
     local cur_vol = tonumber(awful.util.pread(cmd_vol_get))
@@ -65,20 +65,19 @@ vol_prog:set_height(6)
 vol_prog:set_vertical(false)
 vol_prog:set_background_color("#434343")
 vol_prog:set_border_color(nil)
-vol_prog:set_gradient_colors({ beautiful.fg_normal, beautiful.fg_normal, beautiful.fg_normal, beautiful.bar })
-awful.widget.layout.margins[vol_prog.widget] = { top = 6 }
---vol_prog:set_value(get())
+vol_prog:set_color({ type = "linear", from = { 0, 0 }, to = { 1,0 }, stops = { {0, "#434343"}, {1, "#A3A3A3"}}})
 if vol_muted then vol_prog:set_value(0.0)
 else vol_prog:set_value(get()) end
-local vol_prog_t = awful.tooltip({ objects = {vol_prog.widget}})
-vol_prog.widget:buttons(awful.util.table.join(
+local vol_progm = wibox.layout.margin(vol_prog,0,3,6,6)
+local vol_prog_t = awful.tooltip({ objects = {vol_progm}})
+vol_prog:buttons(awful.util.table.join(
     awful.button({ }, 3, function () toggle() end),
     awful.button({ }, 4, function () up() end),
     awful.button({ }, 5, function () down() end)
  ))
 
 function widgets()
-    return vol_prog.widget, volicon
+    return vol_progm, volicon
 end
 
 function toggle()

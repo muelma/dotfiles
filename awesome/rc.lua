@@ -1,13 +1,14 @@
 -- Standard awesome library
-require("awful")
-require("awful.autofocus")
-require("awful.rules")
+awful = require("awful")
+awful.autofocus = require("awful.autofocus")
+awful.rules = require("awful.rules")
 -- Theme handling library
-require("beautiful")
+local beautiful = require("beautiful")
+wibox = require("wibox")
 -- Notification library
-naughty = require("naughty")
+local naughty = require("naughty")
 -- Widgets
-vicious = require("vicious")
+local vicious = require("vicious")
 -- Debian menu entries
 -- require("debian.menu")
 local calendar = nil
@@ -46,21 +47,21 @@ if awesome.startup_errors then
                      text = awesome.startup_errors })
 end
 
--- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.add_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
-        in_error = false
-    end)
-end
--- }}}
+---- Handle runtime errors after startup
+--do
+--    local in_error = false
+--    awesome.add_signal("debug::error", function (err)
+--        -- Make sure we don't go into an endless error loop
+--        if in_error then return end
+--        in_error = true
+--
+--        naughty.notify({ preset = naughty.config.presets.critical,
+--                         title = "Oops, an error happened!",
+--                         text = err })
+--        in_error = false
+--    end)
+--end
+---- }}}
 
 -- {{{ Variable definitions
 
@@ -101,8 +102,8 @@ else
     cmd_quit_noask   = awesome.quit
 end
 
--- make naughty icons 64pts small (eg. for quodlibet)
-naughty.config.default_preset.icon_size = 64
+---- make naughty icons 64pts small (eg. for quodlibet)
+--naughty.config.default_preset.icon_size = 64
 
 -- Themes define colours, icons, and wallpapers
 beautiful.init(beautiful_theme)
@@ -178,63 +179,55 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
 -- Spacers
-rbracket = widget({type = "textbox" })
-rbracket.text = "]"
-lbracket = widget({type = "textbox" })
-lbracket.text = "["
-space = widget({ type = "textbox" })
-space.text = " "
+rbracket = wibox.widget.textbox()
+rbracket:set_markup("]")
+lbracket = wibox.widget.textbox()
+lbracket:set_markup("[")
+space = wibox.widget.textbox()
+space:set_markup(" ")
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "right" })
+mytextclock = awful.widget.textclock("%b %d, %H:%M")
 -- change clockbox for your clock widget (e.g. mytextclock)
-mytextclock:add_signal("mouse::enter", function()
+mytextclock:connect_signal("mouse::enter", function()
   add_calendar(0)
 end)
-mytextclock:add_signal("mouse::leave", remove_calendar)
+mytextclock:connect_signal("mouse::leave", remove_calendar)
 --
 --mytextclock:buttons(awful.util.table.join(
---    button({ }, 4, function()
+--    awful.button({ }, 4, function()
 --        add_calendar(-1)
 --    end),
---    button({ }, 5, function()
+--    awful.button({ }, 5, function()
 --        add_calendar(1)
 --    end)
 --))
 
-
-diskwidget = widget({ type = 'textbox' })
-diskwidget.text = "du"
-disk = require("diskusage")
-disk.addToWidget(diskwidget, 75, 90, true)
--- the first argument is the widget to trigger the diskusage
--- the second/third is the percentage at which a line gets orange/red
--- true = show only local filesystems
 
 -- Battery ⚡
 --
 -- name of the battery
 battery = "BAT0"
 -- test whether battery is present
-baticon = widget({ type = "imagebox"})
-baticon.image = image( icondir .. "bat_full_02.png" )
+baticon = wibox.widget.imagebox()
+baticon:set_image(icondir .. "bat_full_02.png")
 
-batwidget = awful.widget.progressbar()
+local batwidget = awful.widget.progressbar()
 batwidget:set_width(25)
 batwidget:set_height(6)
 batwidget:set_vertical(false)
 batwidget:set_background_color("#434343")
 batwidget:set_border_color(nil)
-batwidget:set_gradient_colors({ beautiful.fg_normal, beautiful.fg_normal, beautiful.fg_normal, beautiful.bar })
-awful.widget.layout.margins[batwidget.widget] = { top = 6 }
-batwidget_t = awful.tooltip({ objects = {batwidget.widget}})
-vicious.register(batwidget, vicious.widgets.bat,
+batwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 1,0 }, stops = { {0, "#434343"}, {1, "#A3A3A3"}}})
+local batwidgetm = wibox.layout.margin(batwidget,0,3,6,6)
+batwidget_t = awful.tooltip({ objects = {batwidget}})
+vicious.register(batwidgetm, vicious.widgets.bat,
                 function (widget, args)
                     battery_state = "full"
                     if args[1] == "-" then
@@ -248,7 +241,7 @@ vicious.register(batwidget, vicious.widgets.bat,
                 61, battery)
 
 -- Weather widget
-weatherwidget = widget({ type = "textbox" })
+weatherwidget = wibox.widget.textbox()
 weather_t = awful.tooltip({ objects = { weatherwidget },})
 
 vicious.register(weatherwidget, vicious.widgets.weather,
@@ -264,7 +257,7 @@ s = require("speaker")
 spr, sic = speaker.widgets()
 
 -- Create a systray
-mysystray = widget({ type = "systray" })
+mysystray = wibox.widget.systray()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -307,7 +300,7 @@ mytasklist.buttons = awful.util.table.join(
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+    mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -317,38 +310,49 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", height="18", screen = s })
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        mytextclock,
-        space,
-        rbracket, diskwidget, lbracket,
-        space,
-        rbracket, weatherwidget, lbracket,
-        space,
-        rbracket, space, spr, sic, lbracket,
-        space,
-        rbracket, space, batwidget.widget, baticon, lbracket,
-        space,
-        s == screen.count() and mysystray or nil,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+
+    -- Widgets that are aligned to the left
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mylauncher)
+    left_layout:add(mytaglist[s])
+    left_layout:add(mypromptbox[s])
+
+    -- Widgets that are aligned to the right
+    local right_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(space)
+    right_layout:add(lbracket)
+    right_layout:add(weatherwidget)
+    right_layout:add(rbracket)
+    right_layout:add(space)
+    right_layout:add(lbracket)
+    right_layout:add(sic)
+    right_layout:add(spr)
+    right_layout:add(rbracket)
+    right_layout:add(space)
+    right_layout:add(lbracket)
+    right_layout:add(baticon)
+    right_layout:add(batwidgetm)
+    right_layout:add(rbracket)
+    right_layout:add(space)
+    right_layout:add(mytextclock)
+    right_layout:add(space)
+    right_layout:add(mylayoutbox[s])
+
+    -- Now bring it all together (with the tasklist in the middle)
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+
+    mywibox[s]:set_widget(layout)
 end
 -- }}}
 
