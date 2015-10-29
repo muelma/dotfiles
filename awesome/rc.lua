@@ -2,6 +2,7 @@
 awful = require("awful")
 awful.autofocus = require("awful.autofocus")
 awful.rules = require("awful.rules")
+local gears = require("gears")
 -- Theme handling library
 local beautiful = require("beautiful")
 wibox = require("wibox")
@@ -71,9 +72,6 @@ env_session = os.getenv("DESKTOP_SESSION") or ""
 confdir = env_home .. "/.config/awesome/"
 icondir = confdir .. "icons/"
 
-beautiful_theme= confdir .. "themes/default/theme.lua"
---beautiful_theme="/usr/share/awesome/themes/default/theme.lua"
-
 -- commands for raising/lowering the volume
 -- might be "amixer -q sset Master 2dB+" (if amixer present)
 -- or "pactl set-sink-volume 0 -- -5%" (if using pulseaudio)
@@ -106,8 +104,8 @@ end
 --naughty.config.default_preset.icon_size = 64
 
 -- Themes define colours, icons, and wallpapers
-beautiful.init(beautiful_theme)
--- beautiful.init("/home/mmueller/.config/awesome/sky/theme.lua")
+beautiful.init("/home/mueller/.config/awesome/themes/default/theme.lua") 
+
 
 -- This is used later as the default terminal and editor to run.
 terminal = ""
@@ -145,6 +143,14 @@ layouts =
     awful.layout.suit.max,
     awful.layout.suit.magnifier
 }
+-- }}}
+
+-- {{{ Wallpaper
+if beautiful.wallpaper then
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+    end
+end
 -- }}}
 
 -- {{{ Tags
