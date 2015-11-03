@@ -66,15 +66,18 @@ vol_prog:set_vertical(false)
 vol_prog:set_background_color("#434343")
 vol_prog:set_border_color(nil)
 vol_prog:set_color({ type = "linear", from = { 0, 0 }, to = { 1,0 }, stops = { {0, "#434343"}, {1, "#A3A3A3"}}})
-if vol_muted then vol_prog:set_value(0.0)
-else vol_prog:set_value(get()) end
 local vol_progm = wibox.layout.margin(vol_prog,0,3,6,6)
 local vol_prog_t = awful.tooltip({ objects = {vol_progm}})
-vol_prog:buttons(awful.util.table.join(
+vol_progm:buttons(awful.util.table.join(
     awful.button({ }, 3, function () toggle() end),
     awful.button({ }, 4, function () up() end),
     awful.button({ }, 5, function () down() end)
  ))
+if vol_muted then vol_prog:set_value(0.0)
+else 
+  vol_prog:set_value(get()) 
+  vol_prog_t:set_text(math.floor(vol) .. "%")
+end
 
 function widgets()
     return vol_progm, volicon
@@ -85,10 +88,10 @@ function toggle()
     vol_muted = not vol_muted
     if vol_muted then 
       vol_prog:set_value(0.0)
-      volicon.image = image(icondir .. "spkr_02.png")
+      volicon:set_image(icondir .. "spkr_02.png")
     else 
       vol_prog:set_value(get()) 
-      volicon.image = image(icondir .. "spkr_01.png")
+      volicon:set_image(icondir .. "spkr_01.png")
     end
 end
 
