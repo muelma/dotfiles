@@ -46,7 +46,7 @@ SAVEHIST=10000
 HOSTNAME=`hostname`
 PAGER='less'
 EDITOR='vim'
-BROWSER='firefox'
+BROWSER='google-chrome'
     autoload colors zsh/terminfo
     if [[ "$terminfo[colors]" -ge 8 ]]; then
    colors
@@ -106,7 +106,7 @@ alias unimount='sshfs mueller@grawp.physik.uni-leipzig.de:/home/mueller $HOME/un
 alias caps2super='setxkbmap -option caps:super'
 alias readywork='dualmonitor && unimount && ssh-add && workrave &'
 alias rtask="ssh mueller@hofmannsthal.physik.uni-leipzig.de \~/custom_usr/bin/task rc._forcecolor:on"
-alias beamerout='xrandr --output VGA1 --mode 1024x768 --rate 60'
+alias beamerout='xrandr --output VGA1 --mode 1024x768 --output LVDS1 --mode 1024x768 --rate 60'
 alias beamer_out_auto='xrandr --output VGA1 --auto'
 alias please='sudo `history | tail -n 1 | sed -e "s/[0-9 ][0-9 ]*//" -e "s/\n//"`'
 alias sudo="sudo " # this way sudo uses alias expansion
@@ -114,11 +114,13 @@ alias gitdiff="git diff --color"
 alias dotgit="git --git-dir $HOME/dotfiles/.git --work-tree $HOME/dotfiles"
 alias g11="g++ -std=c++11"
 alias clang11="clang++ -std=c++11"
-#alias ipython="ipython --pylab"
+#alias ipython="/home/mueller/miniconda2/bin/ipython --pylab"
 alias pdflatex='pdflatex --interaction=nonstopmode '
 alias skype='env PULSE_LATENCY_MSEC=30 skype'
 alias scriptdir='cd ~/simulations_src/scripts/temp_save_goni_fixed_scripts/'
 alias evince='evince 2>/dev/null'
+alias cmake-release='cmake -DCMAKE_BUILD_TYPE=release'
+alias mergepdfs='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.pdf'
 
 export PATH=$PATH:~/scripts
 export PYTHONPATH=~/simulations_src/scripts/
@@ -225,4 +227,5 @@ __git_files () {
 #  /usr/games/fortune
 #fi
 
-
+# added by Miniconda2 3.19.0 installer
+# export PATH="/home/mueller/miniconda2/bin:$PATH"
