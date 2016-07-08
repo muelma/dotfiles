@@ -86,7 +86,7 @@ if has("autocmd")
 
     " Commenting blocks of code.
     autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-    autocmd Filetype c,cpp set comments^=:///
+    autocmd FileType c,cpp set comments^=:///
     autocmd FileType sh,ruby,python   let b:comment_leader = '# '
     autocmd FileType conf,fstab       let b:comment_leader = '# '
     autocmd FileType tex              let b:comment_leader = '% '
@@ -161,8 +161,7 @@ endif
 set noerrorbells visualbell t_vb=
 " spell checking 
 syntax spell toplevel
-map <F9> :setlocal spell! spelllang=en_us<CR>
-imap <F9> <C-o>:setlocal spell! spelllang=en_us<CR>
+map <F9> :setlocal spell! spelllang=en_gb<CR>
 
 " toggle wrapping with F2
 map <F2> :set wrap!<CR>
@@ -211,6 +210,7 @@ set grepprg=grep\ -nH\ $*
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+" let g:Tex_BibtexFlavor = 'biber'
 let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode --shell-escape $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'evince 2>/dev/null'

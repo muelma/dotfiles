@@ -7,7 +7,7 @@ local gears = require("gears")
 local beautiful = require("beautiful")
 wibox = require("wibox")
 -- Notification library
-local naughty = require("naughty")
+--local naughty = require("naughty")
 -- Widgets
 local vicious = require("vicious")
 -- Debian menu entries
@@ -158,7 +158,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ '1-www', 2, 3, 4, 5, 6, 7, 8, '9-mail' }, s, layouts[1])
 end
 -- }}}
 -- local conffile = awesome.conffile or aweful.util.getdir("config") .. "/rc.lua"
@@ -230,10 +230,10 @@ batwidget:set_height(6)
 batwidget:set_vertical(false)
 batwidget:set_background_color("#434343")
 batwidget:set_border_color(nil)
-batwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 1,0 }, stops = { {0, "#434343"}, {1, "#A3A3A3"}}})
+batwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 1,0 }, stops = { {0,"#434343"}, {1,  "#A3A3A3"}}})
 local batwidgetm = wibox.layout.margin(batwidget,0,3,6,6)
 batwidget_t = awful.tooltip({ objects = {batwidget}})
-vicious.register(batwidgetm, vicious.widgets.bat,
+vicious.register(batwidget, vicious.widgets.bat,
                 function (widget, args)
                     battery_state = "full"
                     if args[1] == "-" then
@@ -389,12 +389,14 @@ globalkeys = awful.util.table.join(
     awful.key({}, "#121", 
         function () speaker.toggle() end),
     awful.key({ modkey,           }, "F1",
-        function () awful.util.spawn("firefox", false) end),
+        function () awful.util.spawn("google-chrome", false) end),
+    awful.key({ modkey,           }, "F2",
+        function () awful.util.spawn("thunderbird", false) end),
     awful.key({ modkey,           }, "F12",
         function () awful.util.spawn("env PULSE_LATENCY_MSEC=60 skype", false) end),
 --    awful.key({ modkey, }, "F10", 
 --        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
-    awful.key({ modkey,           }, "F2",
+    awful.key({ modkey,           }, "F3",
         function () awful.util.spawn("quodlibet", false) end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -551,7 +553,16 @@ awful.rules.rules = {
           maximized_horizontal = true,
           floating = true,
           size_hints_honor = false }},
-    { rule = { class = "Chromium" },
+    { rule = { class = "google-chrome" },
+      properties = {
+          tag = tags[screen.count()][1],
+          switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true,
+          size_hints_honor = false }},
+    { rule = { class = "Thunderbird" },
       properties = {
           tag = tags[screen.count()][9],
           switchtotag = true,

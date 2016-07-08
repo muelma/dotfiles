@@ -4,7 +4,7 @@ Host *.physik.uni-leipzig.de
     ForwardX11 yes
     ForwardX11Trusted yes
     IdentityFile ~/.ssh/id_rsa
-#    ForwardAgent yes
+    ForwardAgent yes
     Compression yes
     GSSAPIAuthentication no
     RSAAuthentication yes
