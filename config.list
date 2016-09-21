@@ -10,3 +10,4 @@ pythonstartup   ~/.pythonstartup
 user-dirs.dirs  ~/.config/user-dirs.dirs
 muttrc          ~/.muttrc
 matplotlibrc    ~/.config/matplotlib/matplotlibrc
+dircolors       ~/.dircolors

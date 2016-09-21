@@ -36,7 +36,8 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile &>/dev/null
 
-LS_COLORS='ow=103;30;01'
+#LS_COLORS='ow=103;30;01'
+eval "$(dircolors ~/.dircolors)"
 
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="Europe/Berlin"
