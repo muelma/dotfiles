@@ -39,6 +39,8 @@ zmodload -ap zsh/mapfile mapfile &>/dev/null
 #LS_COLORS='ow=103;30;01'
 eval "$(dircolors ~/.dircolors)"
 
+REPORTTIME=5
+
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="Europe/Berlin"
 HISTFILE=$HOME/.zhistory
