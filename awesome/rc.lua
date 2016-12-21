@@ -158,7 +158,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ '1-www', 2, 3, 4, 5, 6, 7, 8, '9-mail' }, s, layouts[1])
+    tags[s] = awful.tag({ '1-www', 2, 3, 4, 5, 6, 7, '8-ref', '9-mail' }, s, layouts[1])
 end
 -- }}}
 -- local conffile = awesome.conffile or aweful.util.getdir("config") .. "/rc.lua"
@@ -392,6 +392,8 @@ globalkeys = awful.util.table.join(
         function () awful.util.spawn("google-chrome", false) end),
     awful.key({ modkey,           }, "F2", -- "#139", --F2
         function () awful.util.spawn("thunderbird", false) end),
+    awful.key({ modkey,           }, "F3", -- "#139", --F2
+        function () awful.util.spawn("mendeleydesktop", false) end),
     awful.key({ modkey,           }, "F12", -- "#218",  --F12
         function () awful.util.spawn("env PULSE_LATENCY_MSEC=60 skype", false) end),
 --    awful.key({ modkey, }, "F10", 
@@ -535,25 +537,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "Opera" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true }},
     { rule = { name = "OpenGl" }, properties = { floating = true }},
-    { rule = { class = "Firefox" },
-      properties = {
-          tag = tags[screen.count()][1],
-          switchtotag = true,
-          fullscreen = false,
-          maximized_vertical = true,
-          maximized_horizontal = true,
-          floating = true,
-          size_hints_honor = false }},
-    { rule = { class = "google-chrome" },
+    { rule = { role = "browser" },
       properties = {
           tag = tags[screen.count()][1],
           switchtotag = true,
@@ -566,6 +551,15 @@ awful.rules.rules = {
       properties = {
           tag = tags[screen.count()][9],
           switchtotag = true,
+          fullscreen = false,
+          maximized_vertical = true,
+          maximized_horizontal = true,
+          floating = true,
+          size_hints_honor = false }},
+    { rule = { name = "Mendeley Desktop" },
+      properties = {
+          tag = tags[screen.count()][8],
+          switchtotag = false,
           fullscreen = false,
           maximized_vertical = true,
           maximized_horizontal = true,

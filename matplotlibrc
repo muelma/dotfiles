@@ -164,7 +164,8 @@ text.usetex         : True    # use latex for all text handling. The following f
                               # matplotlib mailing list
 text.latex.unicode : True # use "ucs" and "inputenc" LaTeX packages for handling
                             # unicode strings.
-#text.latex.preamble :  # IMPROPER USE OF THIS FEATURE WILL LEAD TO LATEX FAILURES
+text.latex.preamble : \usepackage[notextcomp]{stix}
+                            # IMPROPER USE OF THIS FEATURE WILL LEAD TO LATEX FAILURES
                             # AND IS THEREFORE UNSUPPORTED. PLEASE DO NOT ASK FOR HELP
                             # IF THIS FEATURE DOES NOT DO WHAT YOU EXPECT IT TO.
                             # preamble is a comma separated list of LaTeX statements
@@ -211,7 +212,7 @@ text.latex.unicode : True # use "ucs" and "inputenc" LaTeX packages for handling
 #mathtext.it  : serif:italic
 #mathtext.bf  : serif:bold
 #mathtext.sf  : sans
-#mathtext.fontset : cm # Should be 'cm' (Computer Modern), 'stix',
+mathtext.fontset : stix # Should be 'cm' (Computer Modern), 'stix',
                        # 'stixsans' or 'custom'
 #mathtext.fallback_to_cm : True  # When True, use symbols from the Computer Modern
                                  # fonts when a symbol can not be found in one of
@@ -249,7 +250,7 @@ axes.linewidth      : 0.6     # edge linewidth
 #axes.unicode_minus  : True    # use unicode for the minus symbol
                                # rather than hyphen.  See
                                # http://en.wikipedia.org/wiki/Plus_and_minus_signs#Character_codes
-axes.color_cycle    : 4DAF4A, 377EB8, E41A1C, FF7F00, 984EA3, 666666
+axes.prop_cycle    : cycler('color', ['4DAF4A', '377EB8', 'E41A1C', 'FF7F00', '984EA3', '666666'])
                       #b, g, r, c, m, y, k  # color cycle for plot lines
                       # as list of string colorspecs:
                       # single letter, long name, or
