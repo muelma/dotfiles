@@ -1,7 +1,7 @@
 " initialise pathogen
 " make sure these lines are enabled before filetype detection
 " ( ie. if has("autocmd") block )
-call pathogen#infect()
+"call pathogen#infect()
 
 " turn on vim mode instead of vi mode
 " this command triggers many option settings, therefore
@@ -13,6 +13,38 @@ set nocompatible
 set modelines=0
 set nomodeline
 colorscheme desert
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'lervag/vimtex'
+Plugin 'rhysd/vim-clang-format'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
@@ -92,6 +124,8 @@ if has("autocmd")
     autocmd FileType tex              let b:comment_leader = '% '
     autocmd FileType mail             let b:comment_leader = '> '
     autocmd FileType vim              let b:comment_leader = '" '
+"    autocmd Filetype tex source ~/.vim/auctex.vim
+
     noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
     noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -159,9 +193,7 @@ endif
 
 " don't beep on error
 set noerrorbells visualbell t_vb=
-" spell checking 
-syntax spell toplevel
-map <F9> :setlocal spell! spelllang=en_gb<CR>
+"" spell checking 
 
 " toggle wrapping with F2
 map <F2> :set wrap!<CR>
@@ -199,54 +231,41 @@ if has("statusline")
     set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 endif
 
-" vim latex plugin
-" ----------------
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-" ( better safe than sorry )
-set grepprg=grep\ -nH\ $*
-" Starting with Vim 7, the filetype of empty .tex files defaults to 
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
+" set default file descriptor of *.tex-files to latex
 let g:tex_flavor='latex'
-" let g:Tex_BibtexFlavor = 'biber'
-let g:Tex_CompileRule_pdf = 'pdflatex --interaction=nonstopmode --shell-escape $*'
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'evince 2>/dev/null'
-" let g:Tex_SmartKeyQuote = 0
-" let g:TTarget = 'pdf'
-" Set the warning messages to ignore.
-let g:Tex_IgnoredWarnings =
-\"Underfull\n".
-\"Overfull\n".
-\"specifier changed to\n".
-\"You have requested\n".
-\"Missing number, treated as zero.\n".
-\"There were undefined references\n".
-\"Citation %.%# undefined\n".
-\"LaTeX Font Warning:\n".
-\"LaTeX Warning: Command:\n".
-\"inputting\n"
-" This number N says that latex-suite should ignore the first N of the above.
-let g:Tex_IgnoreLevel = 10
-let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_GotoError=0
-" ----------------
 
-" autocompletion with clang_complete, snipmate and supertab
-" Complete options (disable preview scratch window)
-"set completeopt = menu,menuone,longest
-" Limit popup menu height
-set pumheight=15
+let g:vimtex_view_general_viewer = 'okular' 
+let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
+let g:vimtex_view_general_options_latexmk = '--unique'
+let g:vimtex_fold_enabled = 0
+let g:vimtex_quickfix_ignored_warnings = ['Underfull', 'Overfull', 'PDF inclusion', ' hyperref Warning: Token not allowed']
 
-" SuperTab option for context aware completion
-let g:SuperTabDefaultCompletionType = "context"
 
-" Disable auto popup, use <Tab> to autocomplete
-let g:clang_complete_auto = 0
-" Show clang errors in the quickfix window
-"let g:clang_complete_copen = 1
-let g:clang_user_options='|| exit 0'
-map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
-imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
+"" autocompletion with clang_complete, snipmate and supertab
+"" Complete options (disable preview scratch window)
+""set completeopt = menu,menuone,longest
+"" Limit popup menu height
+"set pumheight=15
+"
+"" SuperTab option for context aware completion
+"let g:SuperTabDefaultCompletionType = "context"
+"
+"" Disable auto popup, use <Tab> to autocomplete
+"let g:clang_complete_auto = 0
+"" Show clang errors in the quickfix window
+""let g:clang_complete_copen = 1
+"let g:clang_user_options='|| exit 0'
+"map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
+"imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
+"
+"function! SyncTexForward()
+"  let s:syncfile = fnamemodify(fnameescape(Tex_GetMainFileName()), ":r").".pdf"
+"  let execstr = "silent !okular --unique ".s:syncfile."\\#src:".line(".").expand("%\:p").' &'
+"  exec execstr
+"endfunction
+"nnoremap <Leader>f :call SyncTexForward()<CR>
+
+"syntax spell toplevel
+"unmap <F9>
+nnoremap <F12> :setlocal spell! spelllang=en_gb<CR>
+set spell spelllang=en_gb

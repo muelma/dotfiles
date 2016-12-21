@@ -388,15 +388,15 @@ globalkeys = awful.util.table.join(
         function () speaker.down() end),
     awful.key({}, "#121", 
         function () speaker.toggle() end),
-    awful.key({ modkey,           }, "F1",
+    awful.key({ modkey,           }, "F1", -- "#146", --F1
         function () awful.util.spawn("google-chrome", false) end),
-    awful.key({ modkey,           }, "F2",
+    awful.key({ modkey,           }, "F2", -- "#139", --F2
         function () awful.util.spawn("thunderbird", false) end),
-    awful.key({ modkey,           }, "F12",
+    awful.key({ modkey,           }, "F12", -- "#218",  --F12
         function () awful.util.spawn("env PULSE_LATENCY_MSEC=60 skype", false) end),
 --    awful.key({ modkey, }, "F10", 
 --        function () awful.util.spawn("dbus-send --session --type=method_call --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.Logout uint32:1") end),
-    awful.key({ modkey,           }, "F3",
+    awful.key({ modkey,           }, "#190", --F3
         function () awful.util.spawn("quodlibet", false) end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),

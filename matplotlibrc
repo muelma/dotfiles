@@ -89,7 +89,7 @@ lines.markersize  : 4             # markersize, in points
 # information on patch properties
 #patch.linewidth        : 1.0     # edge width in points
 #patch.facecolor        : blue
-patch.edgecolor         : 262626
+#patch.edgecolor         : 262626
 #patch.antialiased      : True    # render patches in antialised (no jaggies)
 
 ### FONT
@@ -150,7 +150,7 @@ font.size           : 12.0
 # http://matplotlib.org/api/artist_api.html#module-matplotlib.text for more
 # information on text properties
 
-text.color          : 262626
+#text.color          : 262626
 
 ### LaTeX customizations. See http://www.scipy.org/Wiki/Cookbook/Matplotlib/UsingTex
 text.usetex         : True    # use latex for all text handling. The following fonts
@@ -228,13 +228,13 @@ text.latex.unicode : True # use "ucs" and "inputenc" LaTeX packages for handling
 # http://matplotlib.org/api/axes_api.html#module-matplotlib.axes
 #axes.hold           : True    # whether to clear the axes by default on
 #axes.facecolor      : white   # axes background color
-axes.edgecolor      : 262626   # axes edge color
+#axes.edgecolor      : 262626   # axes edge color
 axes.linewidth      : 0.6     # edge linewidth
 #axes.grid           : False   # display grid or not
 #axes.titlesize      : large   # fontsize of the axes title
 #axes.labelsize      : medium  # fontsize of the x any y labels
 #axes.labelweight    : normal  # weight of the x and y labels
-axes.labelcolor     : 262626
+#axes.labelcolor     : 262626
 #axes.axisbelow      : False   # whether axis gridlines and ticks are below
                               # the axes elements (lines, text, etc)
 #axes.formatter.limits : -7, 7 # use scientific notation if log10
@@ -268,7 +268,7 @@ axes.color_cycle    : 4DAF4A, 377EB8, E41A1C, FF7F00, 984EA3, 666666
 #xtick.minor.width    : 0.5    # minor tick width in points
 #xtick.major.pad      : 4      # distance to major tick label in points
 #xtick.minor.pad      : 4      # distance to the minor tick label in points
-xtick.color           : 262626 # color of the tick labels
+#xtick.color           : 262626 # color of the tick labels
 #xtick.labelsize      : medium # fontsize of the tick labels
 #xtick.direction      : in     # direction: in, out, or inout
 
@@ -278,13 +278,13 @@ xtick.color           : 262626 # color of the tick labels
 #ytick.minor.width    : 0.5    # minor tick width in points
 #ytick.major.pad      : 4      # distance to major tick label in points
 #ytick.minor.pad      : 4      # distance to the minor tick label in points
-ytick.color           : 262626 # color of the tick labels
+#ytick.color           : 262626 # color of the tick labels
 #ytick.labelsize      : medium # fontsize of the tick labels
 #ytick.direction      : in     # direction: in, out, or inout
 
 
 ### GRIDS
-grid.color        :   262626   # grid color
+#grid.color        :   262626   # grid color
 #grid.linestyle   :   :       # dotted
 #grid.linewidth   :   0.5     # in points
 #grid.alpha       :   1.0     # transparency, between 0.0 and 1.0
@@ -310,7 +310,9 @@ legend.scatterpoints : 1 # number of scatter points
 
 ### FIGURE
 # See http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure
-figure.figsize   : 4.80216597481666, 3.2014439832111066  # figure size in inches
+#figure.figsize   : 4.80216597481666, 3.2014439832111066  # figure size in inches
+#figure.figsize   : 5.406825100318252, 3.34160168322274 # figure size in inches DIV=9
+figure.figsize   : 5.20271205202712, 3.21545288183147   
 #figure.dpi       : 80      # figure dots per inch
 #figure.facecolor : 0.75    # figure facecolor; 0.75 is scalar gray
 #figure.edgecolor : white   # figure edgecolor
