@@ -38,6 +38,7 @@ zmodload -ap zsh/mapfile mapfile &>/dev/null
 
 #LS_COLORS='ow=103;30;01'
 eval "$(dircolors ~/.dircolors)"
+eval "$(setxkbmap -rules evdev -model evdev -layout us -variant altgr-intl)"
 
 REPORTTIME=5
 
@@ -75,9 +76,7 @@ LC_ALL='en_US.UTF-8'
 LANG='en_US.UTF-8'
 LC_CTYPE='en_US.UTF-8'
 
-if [ $SSH_TTY ]; then
-  MUTT_EDITOR=vim
-else
+if [ $SSH_TTY ]; then MUTT_EDITOR=vim else
   MUTT_EDITOR=emacsclient.emacs-snapshot
 fi
 
@@ -85,7 +84,7 @@ unsetopt ALL_EXPORT
 # # --------------------------------------------------------------------
 # # aliases
 # # --------------------------------------------------------------------
-alias vim='vim --servername vim'
+alias vimserv='vim --servername vim'
 alias fixtikz='convert -quality 99 -density 600' # input output.jpg
 alias matlab='/net/grawp/opt/MATLAB/R2013a/bin/matlab'
 alias man='LC_ALL=C LANG=C man'

@@ -52,5 +52,8 @@ do
     ln -snf "$TARGET_FULL" "$SYMLINK_E"
 done < "$CONFIG_FILE"
 
-git submodule init
-git submodule update
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+
+#git submodule init
+#git submodule update

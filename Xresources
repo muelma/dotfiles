@@ -9,6 +9,9 @@
 !---------------------------------------------------------------------------!
 !
 
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
 
 ! Xft settings ---------------------------------------------------------------
 Xft.dpi:                        96
@@ -33,7 +36,7 @@ URxvt*font:					    xft:DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true
 !URxvt*font:						xft:Ubuntu Mono:pixelsize=14,style=regular
 Urxvt*cursorColor:				white
 URxvt*scrollColor:				#111111
-!URxvt*perl-ext-common:			default,clipboard,tabbed,matcher
+URxvt*perl-ext-common:			default,clipboard,tabbed,matcher
 URxvt.scrollBar:				off
 !URxvt.tabbed.tabbar-fg:			 7
 !URxvt.tabbed.tabbar-bg: 		-1
@@ -323,6 +326,7 @@ URxvt.color254: #e4e4e4
 URxvt.color255: #eeeeee
 
 ! XTerm configuration
+Xterm*selectToClipboard: true
 XTerm*background:       #151515
 XTerm*foreground:       #999993
 XTerm*cursorColor:      white
