@@ -14,6 +14,8 @@ local vicious = require("vicious")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+--require("volume")
+local volumearc_widget = require("awesome-wm-widgets.volumearc-widget.volumearc")
 
 env_home = os.getenv("HOME")
 env_session = os.getenv("DESKTOP_SESSION") or ""
@@ -152,6 +154,9 @@ mytextclock:connect_signal("button::release",
         end
     end)
 
+--volwidget = wibox.widget.textbox()--({ type = "textbox" })
+--vicious.register(volwidget, vicious.widgets.volume, " $1% ", 2, "PCM")
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -248,6 +253,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            volumearc_widget(),
+            --volwidget,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -269,6 +276,9 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "F1", -- "#146", --F1
         function () awful.util.spawn("firefox", false) end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q -D pulse sset Master 5%+") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q -D pulse sset Master 5%-") end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sset Master toggle", false) end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -476,14 +486,19 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+  properties = { size_hints_honor =false,
+                 border_width = beautiful.border_width,
+                 border_color = beautiful.border_normal,
+                 focus = awful.client.focus.filter,
+                 raise = true,
+                 keys = clientkeys,
+                 buttons = clientbuttons,
+                 screen = awful.screen.preferred,
+                 placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                 maximized_vertical   = false,
+                 maximized_horizontal = false,
+                 floating = false,
+                 maximized = false
      }
     },
 
@@ -518,17 +533,17 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    { rule_any = { 
-      class  = { "firefox", "Opera", "Thunderbird", "keepassx", "epiphany-browser", "midori", "jd", "xchat", }
+    { rule_any = {
+      class  = { "chromium", "firefox", "Opera", "Thunderbird", "keepassx", "epiphany-browser", "midori", "jd", "xchat", }
     },
       properties = {
         tag = screen[1].tags[1],
         switchtotag = true,
         fullscreen = false,
-        maximized_vertical = true,
-        maximized_horizontal = true,
-        floating = true,
-        size_hints_honor = false 
+        --maximized_vertical = true,
+        --maximized_horizontal = true,
+        --floating = true,
+        size_hints_honor = false,
       }
      },
 
