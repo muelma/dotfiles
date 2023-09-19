@@ -621,3 +621,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+-- Autostart
+awful.spawn.with_shell("picom --vsync --no-fading-openclose --fade-in-step=1 --fade-out-step=1 --fade-delta=0 -b")
