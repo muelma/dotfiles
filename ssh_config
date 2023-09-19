@@ -7,6 +7,6 @@ Host *.physik.uni-leipzig.de
     ForwardAgent yes
     Compression yes
     GSSAPIAuthentication no
-    RSAAuthentication yes
+    #RSAAuthentication yes
     PasswordAuthentication yes
     HostbasedAuthentication no

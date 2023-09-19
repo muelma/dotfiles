@@ -8,11 +8,7 @@ you wish to run the library.
 
 ### Installing
 
-Clone it from github:
-
-    git clone https://github.com/muelma/dotfiles.git
-
-Or, if you are using ssh keys:
+Clone it from github using ssh:
 
     git clone git@github.com:muelma/dotfiles.git
 
@@ -29,15 +25,3 @@ Update submodules (eg. for vim):
     git submodule init
     git submodule update
 
-### Other scripts
-
-setup-gnawesome.sh:
-
-Creates a Login Session for unity-greeter within Ubuntu that starts the Awesome Window Manager in a gnome-session.
-
-    cd dotfiles
-    sudo ./setup-gnawesome.sh
-
-gsettings.sh:
-
-Disables the Gnome desktop background and icons.
