@@ -1,6 +1,7 @@
-awesome			    ~/.config/awesome
-Xresources	 	  ~/.Xresources
-zshrc			      ~/.zshrc
+awesome		~/.config/awesome
+Xresources	~/.Xresources
+zshrc		~/.zshrc
+power-controls  ~/.config/power-controls
 ssh_config      ~/.ssh/config
 Xmodmap         ~/.Xmodmap
 terminfo        ~/.terminfo
@@ -10,3 +11,6 @@ muttrc          ~/.muttrc
 dircolors       ~/.dircolors
 nvim 		~/.config/nvim
 tmux		~/.config/tmux
+waybar		~/.config/waybar
+rofi		~/.config/rofi
+nwg-bar		~/.config/nwg-bar
