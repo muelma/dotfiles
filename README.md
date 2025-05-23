@@ -16,6 +16,7 @@ I suggest you to read and understand the bootstrap.sh - script. It looks for all
 Setting up your home folder:
 
     cd dotfiles
+    ./packages.sh # install arch packages via pacman and yay
     ./bootstrap.sh
 
 If you don't want this, just copy the files from dotfiles in your $HOME directory. But you will have to repeat that after each update.
