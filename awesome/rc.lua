@@ -14,7 +14,7 @@ local vicious = require("vicious")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 
 env_home = os.getenv("HOME")
 env_session = os.getenv("DESKTOP_SESSION") or ""
@@ -52,7 +52,7 @@ end
 -- }}}
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 

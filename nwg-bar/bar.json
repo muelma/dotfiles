@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Lock",
+    "exec": "/home/marco/.config/power-controls lock",
+    "icon": "/usr/share/nwg-bar/images/system-lock-screen.svg"
+  },
+  {
+    "label": "Logout",
+    "exec": "/home/marco/.config/power-controls logout",
+    "icon": "/usr/share/nwg-bar/images/system-log-out.svg"
+  },
+  {
+    "label": "Reboot",
+    "exec": "/home/marco/.config/power-controls reboot",
+    "icon": "/usr/share/nwg-bar/images/system-reboot.svg"
+  },
+  {
+    "label": "Shutdown",
+    "exec": "/home/marco/.config/power-controls shutdown",
+    "icon": "/usr/share/nwg-bar/images/system-shutdown.svg"
+  }
+]
