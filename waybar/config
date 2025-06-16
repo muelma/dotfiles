@@ -69,9 +69,21 @@
       "on-click-middle": "swaync-client -t"
     },
     "clock": {
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
       "format": "{:%H:%M} ",
-      "format-alt": "{:%A, %B %d, %Y}  󰃭"
+      "format-alt": "{:%A, %B %d, %Y}  󰃭",
+      "calendar": {
+         "mode"          : "year",
+         "mode-mon-col"  : 3,
+         "weeks-pos"     : "right",
+         "on-scroll"     : 1,
+         "format": {
+          "months":     "<span color='#5e81ac'><b>{}</b></span>",
+          "days":       "<span color='#88c0d0'><b>{}</b></span>",
+          "weekdays":   "<span color='#d08770'><b>{}</b></span>",
+          "today":      "<span color='#bf616a'><b><u>{}</u></b></span>"
+         }
+       },
     },
     "cpu": {
       "format": "{usage}%  ",
@@ -113,7 +125,7 @@
       "on-click": "nm-applet"
     },
     "pulseaudio": {
-      "format": "{icon}  {volume}% {format_source}",
+      "format": "{volume}% {format_source}",
       "format-bluetooth": "{icon} {volume}% {format_source}",
       "format-bluetooth-muted": "   {volume}% {format_source}",
       "format-muted": "  {format_source}",

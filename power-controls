@@ -47,7 +47,7 @@ function close_apps() {
 }
 
 function lock_screen() {
-    swaylock --clock --indicator --timestr="%I:%M %p" --datestr="%Y/%m/%d" --image ~/.wallpaper.png --ring-color=0e5db2 --key-hl-color=3b97f9 --text-color=ffffff --inside-color=000000dd &
+    hyprlock
 }
 
 case "$1" in

@@ -2,6 +2,7 @@ awesome		~/.config/awesome
 Xresources	~/.Xresources
 zshrc		~/.zshrc
 power-controls  ~/.config/power-controls
+rng_hyprpaper	~/.config/rng_hyprpaper
 ssh_config      ~/.ssh/config
 Xmodmap         ~/.Xmodmap
 terminfo        ~/.terminfo
@@ -14,3 +15,4 @@ tmux		~/.config/tmux
 waybar		~/.config/waybar
 rofi		~/.config/rofi
 nwg-bar		~/.config/nwg-bar
+hypr		~/.config/hypr
