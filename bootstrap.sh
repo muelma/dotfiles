@@ -52,9 +52,6 @@ do
     ln -snf "$TARGET_FULL" "$SYMLINK_E"
 done < "$CONFIG_FILE"
 
-git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
 
-#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-#vim +PluginInstall +qall
 #git submodule init
 #git submodule update
