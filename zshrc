@@ -1,10 +1,4 @@
-######################################################################
-#       muelma's zshrc file, based on:
-#           jdong's zshrc file v0.2.1 , based on:
-#             mako's zshrc file, v0.1
-#
-# 
-######################################################################
+###################################################################### muelma's zshrc file, based on: jdong's zshrc file v0.2.1 , based on: mako's zshrc file, v0.1 #####################################################################
 
 # next lets set some enviromental/shell pref stuff up
 # setopt NOHUP
@@ -129,6 +123,10 @@ export PATH=$PATH:~/scripts
 export PYTHONPATH=~/simulations_src/scripts/
 export PYTHONSTARTUP=~/.pythonstartup
 export GNUTERM=x11
+export TERM='alacritty'
+export EDITOR='nvim'
+export VISUAL='nvim'
+
 
 bindkey -v
 bindkey "[7~" beginning-of-line
@@ -256,3 +254,4 @@ __git_files () {
 
 # added by Miniconda2 3.19.0 installer
 # export PATH="/home/mueller/miniconda2/bin:$PATH"
+#eval "$(zellij setup --generate-auto-start zsh)"
