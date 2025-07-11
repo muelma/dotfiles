@@ -2,3 +2,4 @@ vim/.netrwhist
 *.swp
 *~
 tmux/plugins
+.restic.conf
