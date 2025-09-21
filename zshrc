@@ -120,6 +120,7 @@ alias cmake-release='cmake -DCMAKE_BUILD_TYPE=release'
 alias mergepdfs='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.pdf'
 
 export PATH=$PATH:~/scripts
+export PATH=$PATH:~/.miktex/bin
 export PYTHONPATH=~/simulations_src/scripts/
 export PYTHONSTARTUP=~/.pythonstartup
 export GNUTERM=x11
