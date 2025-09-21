@@ -70,7 +70,7 @@
     },
     "clock": {
       "tooltip-format": "<tt><small>{calendar}</small></tt>",
-      "format": "{:%H:%M} ",
+      "format": "{:%a %d - %R} ",
       "format-alt": "{:%A, %B %d, %Y}  󰃭",
       "calendar": {
          "mode"          : "year",
