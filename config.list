@@ -16,3 +16,4 @@ waybar		~/.config/waybar
 rofi		~/.config/rofi
 nwg-bar		~/.config/nwg-bar
 hypr		~/.config/hypr
+dunst		~/.config/dunst
