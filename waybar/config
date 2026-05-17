@@ -11,17 +11,12 @@
     ],
     "modules-center": ["hyprland/window"],
     "modules-right": [
-      "temperature",
-      "cpu",
-      "memory",
       "clock",
       "pulseaudio",
-      "battery",
       "idle_inhibitor",
       "tray"
     ],
 
-    // Modules configuration
     "hyprland/workspaces": {
       "disable-scroll": false,
       "all-outputs": true,
@@ -83,7 +78,7 @@
           "weekdays":   "<span color='#d08770'><b>{}</b></span>",
           "today":      "<span color='#bf616a'><b><u>{}</u></b></span>"
          }
-       },
+       }
     },
     "cpu": {
       "format": "{usage}%  ",
@@ -120,7 +115,6 @@
       "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀 ",
       "format-linked": "{ifname} (No IP)  ",
       "format-disconnected": "睊 ",
-      //"format-alt": "{ifname}: {ipaddr}/{cidr}",
       "tooltip-format": "{essid} {signalStrength}%",
       "on-click": "nm-applet"
     },
@@ -176,47 +170,6 @@
       "escape": true,
       "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null",
       "on-click": "playerctl play-pause"
-    },
-    "custom/spotify": {
-      "format": "{icon} {}",
-      "escape": true,
-      "return-type": "json",
-      "max-length": 40,
-      "interval": 30, // Remove this if your script is endless and write in loop
-      "on-click": "playerctl -p spotify play-pause",
-      "on-click-right": "killall spotify",
-      "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
-      "on-scroll-up": "playerctl -p spotify next",
-      "on-scroll-down": "playerctl -p spotify previous",
-      "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
-      "exec-if": "pgrep spotify"
     }
   }
-  // {
-  //     "name": "bottom-taskbar"
-  //     "height": 37, // Waybar height (to be removed for auto height)
-  //     "widht": 200,
-  //     "layer": "top",
-  //     "start_hidden": false,
-  //     "position": "bottom",
-  //     "modules-center": ["wlr/taskbar"],
-  //     "wlr/taskbar": {
-  //         "format": "{icon}",
-  //         "icon-size": 15,
-  //         "icon-theme": "Numix-Circle",
-  //         "tooltip-format": "{title}",
-  //         "on-click": "activate",
-  //         "on-click-middle": "close",
-  //         "ignore-list": [
-  //            "Alacritty"
-  //         ],
-  //         "app_ids-mapping": {
-  //           "firefoxdeveloperedition": "firefox-developer-edition"
-  //         },
-  //         "rewrite": {
-  //             "Firefox Web Browser": "Firefox",
-  //             "Foot Server": "Terminal"
-  //         }
-  //     }
-  // }
 ]
