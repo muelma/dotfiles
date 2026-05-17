@@ -891,22 +891,30 @@ require('lazy').setup({
     init = function()
       -- VimTeX configuration goes here, e.g.
       vim.g.vimtex_view_method = 'general'
-      vim.g.vimtex_compiler_latexmk = {
-        aux_dir = 'build',
-        out_dir = 'build',
-        callback = 1,
-        continuous = 1,
-        executable = 'latexmk',
-        hooks = {},
+      vim.g.vimtex_compiler_method = 'tectonic'
+      vim.g.vimtex_compiler_tectonic = {
         options = {
-          '-pdf',
-          '-pdflatex=lualatex',
-          '-shell-escape',
-          '-file-line-error',
-          '-synctex=1',
-          '-interaction=nonstopmode',
+          '--synctex',
+          '--keep-logs',
+          --          '--keep-intermediates',
         },
       }
+      -- vim.g.vimtex_compiler_latexmk = {
+      --   aux_dir = 'build',
+      --   out_dir = 'build',
+      --   callback = 1,
+      --   continuous = 1,
+      --   executable = 'latexmk',
+      --   hooks = {},
+      --   options = {
+      --     '-pdf',
+      --     '-pdflatex=lualatex',
+      --     '-shell-escape',
+      --     '-file-line-error',
+      --     '-synctex=1',
+      --     '-interaction=nonstopmode',
+      --   },
+      -- }
     end,
   },
 

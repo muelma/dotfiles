@@ -36,7 +36,7 @@ eval "$(dircolors ~/.dircolors)"
 
 REPORTTIME=5
 
-PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
+PATH="/home/marco/.local/bin/:/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="Europe/Berlin"
 HISTFILE=$HOME/.zhistory
 HISTSIZE=10000
